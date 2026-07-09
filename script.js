@@ -192,7 +192,19 @@ const gameModal = document.querySelector("[data-game-modal]");
 const gameModalFrame = document.querySelector("[data-game-modal-frame]");
 let lastGameTrigger = null;
 
-const openGameModal = (src, title) => {
+// TODO: replace with the real VPS URL once the counter server is deployed
+// (see demo-counter-server/). Left blank means play counts are simply not reported.
+const DEMO_COUNTER_API = "";
+
+const reportDemoPlay = (slug) => {
+  if (!DEMO_COUNTER_API || !slug) return;
+
+  fetch(`${DEMO_COUNTER_API}/counters/${slug}/play`, { method: "POST" }).catch(() => {
+    // Counter server unreachable — never block the demo over this.
+  });
+};
+
+const openGameModal = (src, title, slug) => {
   if (!gameModal || !gameModalFrame) return;
 
   const iframe = document.createElement("iframe");
@@ -204,6 +216,8 @@ const openGameModal = (src, title) => {
   gameModal.classList.add("is-open");
   gameModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+
+  reportDemoPlay(slug);
 
   const closeButton = gameModal.querySelector(".game-modal__close");
   if (closeButton) closeButton.focus();
@@ -224,7 +238,7 @@ document.querySelectorAll("[data-game-trigger]").forEach((trigger) => {
   trigger.addEventListener("click", (event) => {
     event.preventDefault();
     lastGameTrigger = trigger;
-    openGameModal(trigger.dataset.gameTrigger, trigger.dataset.gameTitle);
+    openGameModal(trigger.dataset.gameTrigger, trigger.dataset.gameTitle, trigger.dataset.gameSlug);
   });
 });
 

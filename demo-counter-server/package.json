@@ -1,0 +1,10 @@
+{
+  "name": "animatiq-demo-counter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal counter API for the AnimatiQ site's playable demos — one counter per game, no dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
