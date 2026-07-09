@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnimatiQ | Studio d'expériences interactives</title>
+    <meta
+      name="description"
+      content="AnimatiQ conçoit des jeux personnalisés, bornes d'arcade, selfie box et animations interactives inoubliables pour festivals, entreprises, écoles et événements."
+    />
+    <meta name="theme-color" content="#1E3A5F" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=17" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+
+    <div class="intro-screen" data-intro>
+      <div class="intro-panel">
+        <p class="intro-kicker">BOOT ARCADE</p>
+        <h1>ANIMATIQ</h1>
+        <p class="intro-line">Loading experience...</p>
+        <div class="intro-progress" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="intro-log">
+          <p>Initializing fun...</p>
+          <p>Loading pixels...</p>
+          <p>Ready!</p>
+        </div>
+        <div class="intro-mascot" aria-hidden="true">
+          <img class="intro-mascot__image" src="assets/images/mascotte.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="page-shell">
+      <div class="grain-overlay" aria-hidden="true"></div>
+      <div class="background-scene" aria-hidden="true">
+        <span class="scene-pixel scene-pixel--one"></span>
+        <span class="scene-pixel scene-pixel--two"></span>
+        <span class="scene-pixel scene-pixel--three"></span>
+        <span class="scene-star scene-star--one"></span>
+        <span class="scene-star scene-star--two"></span>
+        <span class="scene-star scene-star--three"></span>
+        <span class="scene-confetti scene-confetti--one"></span>
+        <span class="scene-confetti scene-confetti--two"></span>
+        <span class="scene-confetti scene-confetti--three"></span>
+      </div>
+
+      <header class="site-header">
+        <div class="container header-row">
+          <a class="brand" href="#hero" aria-label="AnimatiQ, retour à l'accueil">
+            <img class="brand__logo" src="assets/images/logo.png" alt="AnimatiQ" />
+          </a>
+
+          <nav class="main-nav" aria-label="Navigation principale">
+            <a href="#services"><span>01</span>Services</a>
+            <a href="#realisations"><span>02</span>Réalisations</a>
+            <a href="#clients"><span>03</span>Clients</a>
+            <a href="#apropos"><span>04</span>À propos</a>
+            <a href="#contact"><span>05</span>Contact</a>
+          </nav>
+
+          <a class="button button--small" data-sound="coin" href="#contact">Créer mon projet</a>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="hero" id="hero">
+          <div class="hero-spotlight" data-parallax="0.05" aria-hidden="true"></div>
+
+          <div class="container hero-layout">
+            <div class="hero-head reveal">
+              <h1>
+                Nous créons des <span class="hero-pop">expériences</span>
+                interactives inoubliables.
+              </h1>
+              <div class="hero-actions">
+                <a class="button" data-sound="coin" href="#contact">Créer mon projet</a>
+                <a class="button button--ghost" data-sound="click" href="#realisations"
+                  >Découvrir nos réalisations</a
+                >
+              </div>
+            </div>
+
+            <div class="hero-scene reveal" data-delay="150">
+              <div class="hero-scene__figure" data-parallax="0.08">
+                <img
+                  class="hero-mascot"
+                  src="assets/images/mascotte.png"
+                  alt="Mascotte AnimatiQ, un jeune garçon souriant, bras croisés"
+                />
+
+                <div class="hero-score" data-parallax="0.1">
+                  <strong data-count="28472">0</strong>
+                  <span class="hero-score__unit">parties jouées</span>
+                </div>
+              </div>
+
+              <ul class="hero-chips" aria-label="Domaines d'expertise">
+                <li style="--rot: -4deg">Jeux personnalisés</li>
+                <li style="--rot: 3deg">Bornes d'arcade</li>
+                <li style="--rot: -2deg">Selfie Box</li>
+                <li style="--rot: 4deg">Festivals</li>
+                <li style="--rot: -3deg">Animations interactives</li>
+                <li style="--rot: 2deg">Entreprises</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="services">
+          <div class="container">
+            <div class="services-intro">
+              <div class="services-mascot reveal" data-delay="100" aria-hidden="true">
+                <img class="services-mascot__image" src="assets/images/mascotte-borne.png" alt="" />
+              </div>
+              <div class="section-heading reveal">
+                <span class="section-index" aria-hidden="true">01</span>
+                <p class="eyebrow">Services</p>
+                <h2>Des dispositifs conçus pour donner envie de jouer et revenir.</h2>
+              </div>
+            </div>
+
+            <div class="services-list">
+              <article class="service-row reveal">
+                <span class="service-row__index">01</span>
+                <div class="service-row__body">
+                  <h3>Jeux personnalisés</h3>
+                  <p>Expériences ludiques sur mesure pour faire vivre une marque ou un événement.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="40">
+                <span class="service-row__index">02</span>
+                <div class="service-row__body">
+                  <h3>Location de bornes arcade</h3>
+                  <p>Bornes premium prêtes à attirer une file d'attente et des scores à battre.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="80">
+                <span class="service-row__index">03</span>
+                <div class="service-row__body">
+                  <h3>Animations festivals</h3>
+                  <p>Activations visuelles et sociales pensées pour générer trafic et bonne humeur.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="120">
+                <span class="service-row__index">04</span>
+                <div class="service-row__body">
+                  <h3>Animations entreprises</h3>
+                  <p>Lancements, salons, team building : des dispositifs interactifs mémorables.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="160">
+                <span class="service-row__index">05</span>
+                <div class="service-row__body">
+                  <h3>Selfie Box</h3>
+                  <p>Captures instantanées, filtres animés et souvenirs prêts à partager.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="200">
+                <span class="service-row__index">06</span>
+                <div class="service-row__body">
+                  <h3>Jeux pédagogiques</h3>
+                  <p>Apprendre en jouant, avec des mécaniques pensées pour chaque public.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="240">
+                <span class="service-row__index">07</span>
+                <div class="service-row__body">
+                  <h3>Visites interactives</h3>
+                  <p>Un parcours qui transforme la visite en véritable terrain de jeu.</p>
+                </div>
+              </article>
+              <article class="service-row reveal" data-delay="280">
+                <span class="service-row__index">08</span>
+                <div class="service-row__body">
+                  <h3>Développement sur mesure</h3>
+                  <p>Interfaces, scoring et écrans live adaptés à chaque projet.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--alt" id="realisations">
+          <div class="container">
+            <div class="section-heading reveal">
+              <span class="section-index" aria-hidden="true">02</span>
+              <p class="eyebrow">Réalisations</p>
+              <h2>Chaque projet est pensé comme un mini-univers jouable.</h2>
+            </div>
+
+            <div class="projects-shelf">
+              <article class="project-card reveal" style="--tilt: -2.5deg">
+                <span class="project-card__ribbon">Démo jouable</span>
+                <div class="project-card__media project-card__media--photo">
+                  <img
+                    src="assets/images/realisations/cavesouvertes.png"
+                    alt="Capture du jeu Caves Ouvertes"
+                    loading="lazy"
+                  />
+                  <span class="project-card__title">Jeux Caves Ouvertes</span>
+                  <button
+                    class="project-card__play"
+                    type="button"
+                    data-game-trigger="assets/games/placeholder.html"
+                    data-game-title="Jeux Caves Ouvertes"
+                    data-sound="coin"
+                  >
+                    <span aria-hidden="true">▶</span> Jouer
+                  </button>
+                </div>
+                <div class="project-card__body">
+                  <h3>Adapté à votre événement</h3>
+                  <p>
+                    Conçu spécialement pour les Caves Ouvertes Genève, ce jeu
+                    d'arcade 16 bits plonge les visiteurs dans une aventure au
+                    cœur du vignoble genevois. Présenté sur une borne d'arcade
+                    rétro au Domaine des Hutins, il a offert une animation
+                    originale mêlant patrimoine, jeu vidéo et esprit familial.
+                  </p>
+                  <ul class="project-meta">
+                    <li>Borne Arcade</li>
+                    <li>Retro game</li>
+                    <li>Terroir</li>
+                    <li>Patrimoine</li>
+                  </ul>
+                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                </div>
+              </article>
+
+              <article class="project-card reveal" style="--tilt: 2deg" data-delay="100">
+                <span class="project-card__ribbon">Sur mesure</span>
+                <div class="project-card__media project-card__media--photo">
+                  <img
+                    src="assets/images/realisations/chasse-aux-bonbons.png"
+                    alt="Capture du jeu Chasse aux bonbons, réalisé pour la commune d'Avully"
+                    loading="lazy"
+                  />
+                  <span class="project-card__title">Chasse aux Bonbons</span>
+                  <button
+                    class="project-card__play"
+                    type="button"
+                    data-game-trigger="assets/games/placeholder.html"
+                    data-game-title="Chasse aux Bonbons"
+                    data-sound="coin"
+                  >
+                    <span aria-hidden="true">▶</span> Jouer
+                  </button>
+                </div>
+                <div class="project-card__body">
+                  <h3>Ancré dans votre commune</h3>
+                  <p>
+                    Adapté pour la Fête des Promotions d'Avully, ce jeu
+                    d'arcade 16 bits invite les enfants à explorer leur propre
+                    village à la chasse aux bonbons. Présenté sur une borne
+                    d'arcade rétro, il a offert une animation originale
+                    mêlant patrimoine local, jeu vidéo et sensibilisation à
+                    l'équilibre alimentaire.
+                  </p>
+                  <ul class="project-meta">
+                    <li>Borne Arcade</li>
+                    <li>Retro game</li>
+                    <li>Pédagogique</li>
+                    <li>Famille</li>
+                  </ul>
+                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                </div>
+              </article>
+
+              <article class="project-card reveal" style="--tilt: -1.5deg" data-delay="200">
+                <span class="project-card__ribbon">Bientôt</span>
+                <div class="project-card__media project-card__media--photo">
+                  <img
+                    src="assets/images/realisations/1602.png"
+                    alt="Capture du jeu L'Escalade 1602"
+                    loading="lazy"
+                  />
+                  <span class="project-card__title">L'Escalade 1602</span>
+                  <button
+                    class="project-card__play"
+                    type="button"
+                    data-game-trigger="assets/games/placeholder.html"
+                    data-game-title="L'Escalade 1602"
+                    data-sound="coin"
+                  >
+                    <span aria-hidden="true">▶</span> Jouer
+                  </button>
+                </div>
+                <div class="project-card__body">
+                  <h3>1602 renaît en pixel art</h3>
+                  <p>
+                    Inspiré de la célèbre bataille de l'Escalade de 1602, ce
+                    jeu d'arcade 16 bits transporte les joueurs dans la Genève
+                    historique. Actuellement en phase de finalisation, il fait
+                    revivre cet épisode emblématique grâce à des personnages
+                    authentiques, des lieux fidèlement reconstitués et une
+                    aventure riche en découvertes.
+                  </p>
+                  <ul class="project-meta">
+                    <li>Voyage dans le temps</li>
+                    <li>16 bits d'histoire</li>
+                    <li>Bataille légendaire</li>
+                    <li>Patrimoine genevois</li>
+                  </ul>
+                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="clients">
+          <div class="container clients-layout">
+            <div class="section-heading reveal">
+              <span class="section-index" aria-hidden="true">03</span>
+              <p class="eyebrow">Ils nous font confiance</p>
+              <h2>Des communes, festivals et vignerons genevois qui ont vécu l'expérience.</h2>
+            </div>
+
+            <div class="logo-grid reveal" data-delay="100">
+              <div class="logo-tile">
+                <img src="assets/images/logos/mairie-avully.png" alt="Commune d'Avully" loading="lazy" />
+              </div>
+              <div class="logo-tile">
+                <img
+                  src="assets/images/logos/logo-JRCRA.png"
+                  alt="Jardin Robinson Avully, centre de rencontres"
+                  loading="lazy"
+                />
+              </div>
+              <div class="logo-tile">
+                <img
+                  src="assets/images/logos/vendanges-russin.png"
+                  alt="Fête des Vendanges de Russin"
+                  loading="lazy"
+                />
+              </div>
+              <div class="logo-tile">
+                <img
+                  src="assets/images/logos/hutins.png"
+                  alt="Domaine Les Hutins, vignerons-encaveurs à Dardagny"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--stats" id="compteur">
+          <div class="container">
+            <div class="section-heading reveal">
+              <span class="section-index" aria-hidden="true">04</span>
+              <p class="eyebrow">
+                Compteur live
+                <span class="eyebrow__live"><span></span>Supabase</span>
+              </p>
+              <h2>Des chiffres qui montrent qu'une expérience bien pensée continue de vivre.</h2>
+            </div>
+
+            <div class="scoreboard">
+              <div class="scoreboard__hero reveal">
+                <span class="scoreboard__icon" aria-hidden="true">🎮</span>
+                <strong data-count="28472">0</strong>
+                <p>Parties jouées</p>
+              </div>
+              <div class="scoreboard__grid">
+                <div class="scoreboard__item reveal" data-delay="60">
+                  <strong data-count="19340">0</strong>
+                  <p>Joueurs</p>
+                </div>
+                <div class="scoreboard__item reveal" data-delay="120">
+                  <strong data-count="8240">0</strong>
+                  <p>Selfies téléchargés</p>
+                </div>
+                <div class="scoreboard__item reveal" data-delay="180">
+                  <strong data-count="186">0</strong>
+                  <p>Événements réalisés</p>
+                </div>
+                <div class="scoreboard__item reveal" data-delay="240">
+                  <strong data-count="47">0</strong>
+                  <p>Jeux développés</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="apropos">
+          <div class="container">
+            <div class="section-heading reveal">
+              <span class="section-index" aria-hidden="true">05</span>
+              <p class="eyebrow">À propos</p>
+              <h2>AnimatiQ est née d'une idée toute simple.</h2>
+            </div>
+
+            <div class="story">
+              <div class="story__copy reveal">
+                <p class="story__kicker">Notre histoire</p>
+
+                <p>
+                  Comme beaucoup de parents, je cherchais à limiter le temps
+                  que mon fils Ian passait devant les écrans. Plutôt que de
+                  lui dire de jouer moins, je lui ai lancé un défi :
+                </p>
+
+                <blockquote class="story__quote">
+                  « Et si, au lieu de jouer aux jeux des autres, nous créions
+                  les nôtres ? »
+                </blockquote>
+
+                <p>
+                  Notre premier jeu est né de cette idée. Ian imaginait les
+                  mécaniques de jeu et testait chaque détail. Moi, je
+                  m'occupais du développement et de la technologie.
+                </p>
+
+                <p>
+                  Pour faire plaisir à un ami vigneron, nous avons ensuite
+                  créé un jeu spécialement conçu pour les Caves Ouvertes de
+                  Genève.
+                </p>
+
+                <p>
+                  L'accueil a été bien au-delà de nos attentes. Les joueurs
+                  ont adoré l'expérience, les demandes se sont multipliées…
+                  et AnimatiQ est née.
+                </p>
+
+                <p>
+                  Aujourd'hui encore, Ian est notre premier testeur, notre
+                  directeur artistique et le garant de la jouabilité. Moi, je
+                  transforme ses idées en expériences interactives.
+                </p>
+
+                <p class="story__tagline">
+                  Parce que les meilleures idées commencent souvent par un
+                  simple jeu.
+                </p>
+              </div>
+
+              <div class="story__media reveal" data-delay="120">
+                <div class="story__portrait">
+                  <img
+                    src="assets/images/mascotte-Ian-Vini.png"
+                    alt="Vinicius et Ian, les deux fondateurs d'AnimatiQ"
+                  />
+                </div>
+                <p class="story__credit">Vinicius &amp; Ian, les deux fondateurs</p>
+              </div>
+            </div>
+
+            <p class="story__closing reveal">
+              AnimatiQ est née d'un défi entre un père et son fils
+              <span>… et cette aventure ne fait que commencer.</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--contact" id="contact">
+          <div class="container contact-shell reveal">
+            <div class="contact-copy">
+              <span class="section-index" aria-hidden="true">06</span>
+              <p class="eyebrow">Insert coin</p>
+              <h2>Parlons d'une expérience que personne n'oubliera.</h2>
+              <p>
+                Décris ton événement, ton public et ton envie : on revient vers
+                toi avec une proposition qui donne déjà envie de jouer.
+              </p>
+            </div>
+
+            <form class="contact-form" data-contact-form>
+              <label>
+                Nom
+                <input type="text" name="name" placeholder="Votre nom" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="vous@exemple.fr" required />
+              </label>
+              <label>
+                Projet
+                <textarea
+                  name="project"
+                  rows="5"
+                  placeholder="Décrivez l'expérience interactive que vous imaginez"
+                  required
+                ></textarea>
+              </label>
+              <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
+              <p class="contact-form__note" data-contact-note role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-row">
+          <div>
+            <img class="footer-logo" src="assets/images/logo.png" alt="AnimatiQ" />
+            <p>Studio de création d'expériences interactives.</p>
+          </div>
+          <nav class="footer-nav" aria-label="Navigation du pied de page">
+            <a href="#services">Services</a>
+            <a href="#realisations">Réalisations</a>
+            <a href="#apropos">À propos</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="footer-wave">
+            <img class="mascot-image mascot-image--footer" src="assets/images/mascotte.png" alt="" />
+            <span>À bientôt 👋</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="game-modal" data-game-modal aria-hidden="true">
+      <div class="game-modal__backdrop" data-game-modal-close></div>
+      <div
+        class="game-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Démo jouable"
+      >
+        <button class="game-modal__close" type="button" data-game-modal-close aria-label="Fermer la démo">
+          ✕
+        </button>
+        <div class="game-modal__frame" data-game-modal-frame></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
