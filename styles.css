@@ -1085,31 +1085,35 @@ p {
   display: none;
 }
 
-.request-success {
-  display: grid;
-  justify-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) 0;
-  text-align: center;
-}
-
-.request-success[hidden] {
+.contact-form[hidden] {
   display: none;
 }
 
-.request-success__mascot {
-  width: 170px;
-  height: auto;
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.3));
+.form-success {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  text-align: center;
 }
 
-.request-success__text {
-  max-width: 340px;
+.form-success[hidden] {
+  display: none;
+}
+
+.form-success__mascot {
+  width: clamp(220px, 32vw, 320px);
+  height: auto;
+  filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.35));
+}
+
+.form-success__text {
+  max-width: 380px;
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
-  line-height: 1.5;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.4;
   color: var(--color-yellow);
 }
 

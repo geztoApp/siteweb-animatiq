@@ -453,32 +453,45 @@
               </p>
             </div>
 
-            <form class="contact-form" data-contact-form>
-              <label class="visually-hidden" aria-hidden="true">
-                Ne remplissez pas ce champ
-                <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
-              </label>
-              <label>
-                Nom
-                <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
-              </label>
-              <label>
-                Email
-                <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
-              </label>
-              <label>
-                Projet
-                <textarea
-                  name="project"
-                  rows="5"
-                  placeholder="Décrivez l'expérience interactive que vous imaginez"
-                  maxlength="2000"
-                  required
-                ></textarea>
-              </label>
-              <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
-              <p class="contact-form__note" data-contact-note role="status" aria-live="polite"></p>
-            </form>
+            <div class="contact-form-slot">
+              <form class="contact-form" data-contact-form>
+                <label class="visually-hidden" aria-hidden="true">
+                  Ne remplissez pas ce champ
+                  <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
+                </label>
+                <label>
+                  Nom
+                  <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
+                </label>
+                <label>
+                  Projet
+                  <textarea
+                    name="project"
+                    rows="5"
+                    placeholder="Décrivez l'expérience interactive que vous imaginez"
+                    maxlength="2000"
+                    required
+                  ></textarea>
+                </label>
+                <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
+                <p class="contact-form__note" data-contact-note role="status" aria-live="polite"></p>
+              </form>
+
+              <div class="form-success" data-contact-success hidden>
+                <img
+                  class="form-success__mascot"
+                  src="assets/images/mascotte-envoye.png"
+                  alt=""
+                  width="767"
+                  height="902"
+                />
+                <p class="form-success__text" data-contact-success-text></p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -585,15 +598,15 @@
           <p class="contact-form__note" data-request-note role="status" aria-live="polite"></p>
         </form>
 
-        <div class="request-success" data-request-success hidden>
+        <div class="form-success" data-request-success hidden>
           <img
-            class="request-success__mascot"
+            class="form-success__mascot"
             src="assets/images/mascotte-envoye.png"
             alt=""
             width="767"
             height="902"
           />
-          <p class="request-success__text" data-request-success-text></p>
+          <p class="form-success__text" data-request-success-text></p>
         </div>
       </div>
     </div>

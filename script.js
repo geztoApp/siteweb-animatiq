@@ -253,6 +253,24 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+/* Shared form-success toggler: hides a form completely and replaces it with
+   a mascot + confirmation text, used by both the request modal and the
+   plain contact form below. */
+
+const createSuccessToggler = (form, success, successText) => ({
+  showSuccess: (message) => {
+    if (form) form.hidden = true;
+    if (success) {
+      success.hidden = false;
+      if (successText) successText.textContent = message;
+    }
+  },
+  showForm: () => {
+    if (success) success.hidden = true;
+    if (form) form.hidden = false;
+  },
+});
+
 /* Request modal (project/game inquiry form, pill-based — no typing required
    beyond name/email/optional details) */
 
@@ -261,25 +279,17 @@ const requestTitleEl = document.querySelector("[data-request-title]");
 const requestMessageEl = document.querySelector("[data-request-message]");
 const requestForm = document.querySelector("[data-request-form]");
 const requestNote = document.querySelector("[data-request-note]");
-const requestSuccess = document.querySelector("[data-request-success]");
-const requestSuccessText = document.querySelector("[data-request-success-text]");
+const requestSuccessToggler = createSuccessToggler(
+  requestForm,
+  document.querySelector("[data-request-success]"),
+  document.querySelector("[data-request-success-text]")
+);
+const showRequestSuccess = requestSuccessToggler.showSuccess;
+const showRequestForm = requestSuccessToggler.showForm;
 
 let lastRequestTrigger = null;
 let requestProjectTitle = "";
 let requestFormShownAt = null;
-
-const showRequestSuccess = (message) => {
-  if (requestForm) requestForm.hidden = true;
-  if (requestSuccess) {
-    requestSuccess.hidden = false;
-    if (requestSuccessText) requestSuccessText.textContent = message;
-  }
-};
-
-const showRequestForm = () => {
-  if (requestSuccess) requestSuccess.hidden = true;
-  if (requestForm) requestForm.hidden = false;
-};
 
 document.querySelectorAll("[data-pill-group]").forEach((group) => {
   const multi = group.hasAttribute("data-multi");
@@ -477,14 +487,19 @@ if (requestForm && requestNote) {
 const contactForm = document.querySelector("[data-contact-form]");
 const contactNote = document.querySelector("[data-contact-note]");
 const contactFormShownAt = Date.now();
+const contactSuccessToggler = createSuccessToggler(
+  contactForm,
+  document.querySelector("[data-contact-success]"),
+  document.querySelector("[data-contact-success-text]")
+);
 
 if (contactForm && contactNote) {
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (isLikelySpam(contactForm, contactFormShownAt)) {
-      contactNote.textContent = "Message envoyé ! On revient vers vous très vite. 🎉";
       contactForm.reset();
+      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite. 🎉");
       return;
     }
 
@@ -501,8 +516,8 @@ if (contactForm && contactNote) {
 
     try {
       await submitToContactServer(payload);
-      contactNote.textContent = "Message envoyé ! On revient vers vous très vite. 🎉";
       contactForm.reset();
+      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite. 🎉");
     } catch {
       contactNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }
