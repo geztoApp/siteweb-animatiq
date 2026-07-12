@@ -691,6 +691,21 @@ p {
   margin-bottom: 10px;
 }
 
+.project-card__cta {
+  width: 100%;
+  margin-top: var(--space-3);
+  gap: 8px;
+}
+
+.project-card__cta span {
+  transition: transform var(--transition);
+}
+
+.project-card__cta:hover span,
+.project-card__cta:focus-visible span {
+  transform: translateX(4px);
+}
+
 .project-meta {
   display: flex;
   flex-wrap: wrap;
