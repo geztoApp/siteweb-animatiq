@@ -1,72 +1,62 @@
-# Déploiement des services backend
+# Déploiement
 
-Le site lui-même (`index.html`, `styles.css`, `script.js`) est statique et se
-déploie séparément (voir le `Dockerfile` à la racine, déjà en place sur
-Easypanel).
+Tout — le site statique (`index.html`, `styles.css`, `script.js`) et les
+trois API (compteur de démos, chat IA, formulaires) — tourne dans **un seul
+processus Node** (`server.js`), donc **une seule app Easypanel**
+(`siteweb-animatiq`, déjà en place).
 
-Les **trois petits services backend** (`demo-counter-server/`,
-`chat-server/`, `contact-server/`) sont conçus pour tourner ensemble, sur le
-même VPS, via **une seule commande** grâce à `docker-compose.yml` — pas
-besoin de trois installations séparées.
+## Ce qui roule où
 
-## Installation (une seule fois)
+| Route | Rôle |
+|---|---|
+| `GET /` | le site |
+| `GET /api/counters`, `POST /api/counters/:slug/play` | compteur de parties jouées par démo |
+| `POST /api/chat` | assistant IA de qualification de projet |
+| `POST /api/submit` | réception des formulaires (contact + demande de projet) |
+| `GET /admin/counters` | page HTML de consultation des compteurs |
+| `GET /admin/submissions` | page HTML de consultation des demandes reçues |
 
-```bash
-cp .env.example .env
-# éditer .env : renseigner OPENAI_API_KEY et ALLOWED_ORIGIN (votre vrai domaine)
+## Variables d'environnement à configurer sur Easypanel
 
-docker compose up --build -d
-```
-
-Ça construit et démarre les trois services d'un coup :
-
-| Service | Port | Rôle |
+| Variable | Rôle | Défaut |
 |---|---|---|
-| `demo-counter` | 4001 | compteur de parties jouées par démo |
-| `chat` | 4002 | assistant IA de qualification de projet |
-| `contact` | 4003 | réception des formulaires (contact + demande) |
+| `OPENAI_API_KEY` | clé API OpenAI, nécessaire pour `/api/chat` | — |
+| `OPENAI_MODEL` | modèle utilisé | `gpt-4o-mini` |
+| `PORT` | port d'écoute (Easypanel le fixe généralement lui-même) | `8080` |
 
-## Après le premier démarrage
+Sans `OPENAI_API_KEY`, tout le reste du site fonctionne normalement — seul
+le chat de qualification répond par une erreur (le visiteur peut alors
+utiliser "Passer directement au formulaire").
 
-- `docker compose ps` — vérifier que les trois tournent.
-- `docker compose logs -f` — suivre les logs des trois en même temps
-  (`docker compose logs -f chat` pour un seul service).
-- Sur Easypanel : si vous préférez la ressource "Compose" plutôt que trois
-  "Application" séparées, pointez-la sur ce `docker-compose.yml` — sinon,
-  chaque service peut aussi être déployé comme une "Application" Easypanel
-  indépendante en utilisant le `Dockerfile` de son propre dossier (les deux
-  approches fonctionnent, `docker-compose.yml` est juste le moyen le plus
-  simple de tout lancer d'un coup sur un serveur unique).
+## Déployer / mettre à jour
 
-## Mettre à jour le site après déploiement
+Easypanel reconstruit l'image à partir du `Dockerfile` à la racine à chaque
+push sur `main` (ou déclenchement manuel du build) — rien à faire côté VPS
+au-delà de configurer les variables d'environnement ci-dessus une fois.
 
-Une fois les trois services en ligne avec leurs vraies URLs, il reste trois
-lignes à modifier dans `script.js` (racine du site) :
+## Persistance des données
 
-```js
-const DEMO_COUNTER_API = "https://votre-domaine.example:4001";
-const CHAT_API = "https://votre-domaine.example:4002";
-const CONTACT_API = "https://votre-domaine.example:4003";
-```
+`data/counters.json` et `data/submissions.log` vivent dans le dossier
+`data/` à la racine du conteneur — pensez à monter un **volume persistant**
+Easypanel sur `/app/data` pour que ces fichiers survivent aux redéploiements
+(sinon ils repartent de zéro à chaque rebuild).
 
-(ou trois sous-domaines/chemins différents selon comment nginx/Caddy/Easypanel
-route les ports — l'important est que chaque URL pointe vers le bon service).
+`submissions.log` contient des données personnelles (noms, e-mails,
+messages, adresses IP) — il n'est jamais commité (voir `.gitignore`) et ne
+vit que sur le volume du VPS.
 
-## Redémarrer après une mise à jour du code
+## Tester en local
 
 ```bash
-git pull
-docker compose up --build -d
+npm install
+OPENAI_API_KEY=sk-... npm start
+# puis ouvrir http://localhost:8080
 ```
-
-Les volumes Docker (`demo-counter-data`, `contact-data`) persistent les
-données (`counters.json`, `submissions.log`) à travers les rebuilds — rien
-n'est perdu.
 
 ## ⚠️ Non testé de bout en bout
 
-Ce `docker-compose.yml` a été validé syntaxiquement (YAML valide, structure
-conforme), mais je n'ai pas Docker sur cette machine pour lancer un vrai
-`docker compose up --build` et confirmer que les trois images se construisent
-et démarrent sans accroc. Premier lancement à faire avec un œil attentif sur
-les logs.
+Docker n'est pas installé sur la machine où ce serveur a été écrit, donc je
+n'ai pas pu lancer un vrai `docker build`/`docker run` pour confirmer que
+l'image se construit et démarre sans accroc. Le code a été relu et
+validé syntaxiquement (`node --check`) ; premier déploiement à surveiller
+avec les logs Easypanel ouverts.

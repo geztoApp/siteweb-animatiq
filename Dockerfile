@@ -1,6 +1,15 @@
-FROM nginx:alpine
+FROM node:20-alpine
 
-COPY index.html styles.css script.js /usr/share/nginx/html/
-COPY assets /usr/share/nginx/html/assets
+WORKDIR /app
 
-EXPOSE 80
+COPY package.json ./
+RUN npm install --omit=dev --no-audit --no-fund
+
+COPY server.js ./
+COPY server ./server
+COPY index.html styles.css script.js ./
+COPY assets ./assets
+
+EXPOSE 8080
+
+CMD ["node", "server.js"]

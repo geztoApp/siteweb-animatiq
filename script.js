@@ -193,15 +193,11 @@ const gameModalFrame = document.querySelector("[data-game-modal-frame]");
 const gameModalHint = document.querySelector("[data-game-modal-hint]");
 let lastGameTrigger = null;
 
-// TODO: replace with the real VPS URL once the counter server is deployed
-// (see demo-counter-server/). Left blank means play counts are simply not reported.
-const DEMO_COUNTER_API = "";
-
 const reportDemoPlay = (slug) => {
-  if (!DEMO_COUNTER_API || !slug) return;
+  if (!slug) return;
 
-  fetch(`${DEMO_COUNTER_API}/counters/${slug}/play`, { method: "POST" }).catch(() => {
-    // Counter server unreachable — never block the demo over this.
+  fetch(`/api/counters/${slug}/play`, { method: "POST" }).catch(() => {
+    // Counter API unreachable — never block the demo over this.
   });
 };
 
@@ -259,10 +255,6 @@ document.addEventListener("keydown", (event) => {
 
 /* Request modal (project/game inquiry form, with an optional AI chat step) */
 
-// TODO: set once chat-server (see chat-server/) is deployed, e.g. "https://your-vps.example/chat".
-// Left blank means the modal skips straight to the plain form — nothing breaks either way.
-const CHAT_API = "";
-
 const requestModal = document.querySelector("[data-request-modal]");
 const requestTitleEl = document.querySelector("[data-request-title]");
 const requestMessageEl = document.querySelector("[data-request-message]");
@@ -319,7 +311,7 @@ const completeChat = (eventType, message) => {
 };
 
 const sendChatMessage = async (userText) => {
-  if (!CHAT_API || chatBusy) return;
+  if (chatBusy) return;
   chatBusy = true;
 
   if (userText) {
@@ -330,7 +322,7 @@ const sendChatMessage = async (userText) => {
   const typingBubble = addTypingBubble();
 
   try {
-    const response = await fetch(`${CHAT_API}/chat`, {
+    const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ projectTitle: chatProjectTitle, messages: chatHistory }),
@@ -386,16 +378,9 @@ const openRequestModal = (title) => {
   if (requestChatMessages) requestChatMessages.replaceChildren();
   if (requestChatFallback) requestChatFallback.hidden = true;
 
-  if (CHAT_API) {
-    if (requestChat) requestChat.hidden = false;
-    if (requestForm) requestForm.hidden = true;
-    sendChatMessage(null);
-  } else {
-    if (requestMessageEl && title) {
-      requestMessageEl.value = `Je suis intéressé(e) par : ${title}.\n\n`;
-    }
-    showFormDirectly();
-  }
+  if (requestChat) requestChat.hidden = false;
+  if (requestForm) requestForm.hidden = true;
+  sendChatMessage(null);
 
   requestModal.classList.add("is-open");
   requestModal.setAttribute("aria-hidden", "false");
@@ -446,15 +431,8 @@ const isLikelySpam = (form, shownAt) => {
   return false;
 };
 
-// TODO: set once contact-server (see contact-server/) is deployed, e.g.
-// "https://your-vps.example". Left blank means both forms below keep their
-// old fake-success behaviour — nothing breaks either way.
-const CONTACT_API = "";
-
 const submitToContactServer = async (payload) => {
-  if (!CONTACT_API) return { ok: true };
-
-  const response = await fetch(`${CONTACT_API}/submit`, {
+  const response = await fetch("/api/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

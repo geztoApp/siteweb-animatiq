@@ -1,0 +1,13 @@
+{
+  "name": "animatiq-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site AnimatiQ (statique) + API du chat, compteurs et formulaires",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
