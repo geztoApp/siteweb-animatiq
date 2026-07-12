@@ -22,7 +22,7 @@ processus Node** (`server.js`), donc **une seule app Easypanel**
 |---|---|---|
 | `OPENAI_API_KEY` | clé API OpenAI, nécessaire pour `/api/chat` | — |
 | `OPENAI_MODEL` | modèle utilisé | `gpt-4o-mini` |
-| `PORT` | port d'écoute (Easypanel le fixe généralement lui-même) | `8080` |
+| `PORT` | port d'écoute — laisser vide/défaut, c'est le port que le nginx précédent utilisait et que Easypanel route déjà | `80` |
 
 Sans `OPENAI_API_KEY`, tout le reste du site fonctionne normalement — seul
 le chat de qualification répond par une erreur (le visiteur peut alors
@@ -49,7 +49,7 @@ vit que sur le volume du VPS.
 
 ```bash
 npm install
-OPENAI_API_KEY=sk-... npm start
+PORT=8080 OPENAI_API_KEY=sk-... npm start
 # puis ouvrir http://localhost:8080
 ```
 

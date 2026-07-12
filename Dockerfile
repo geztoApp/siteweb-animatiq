@@ -10,6 +10,6 @@ COPY server ./server
 COPY index.html styles.css script.js ./
 COPY assets ./assets
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["node", "server.js"]

@@ -6,7 +6,7 @@ const counters = require("./server/counters");
 const chat = require("./server/chat");
 const contact = require("./server/contact");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 const ROOT = __dirname;
 const ASSETS_ROOT = path.join(ROOT, "assets");
 
