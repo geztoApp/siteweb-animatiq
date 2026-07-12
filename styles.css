@@ -1085,6 +1085,34 @@ p {
   display: none;
 }
 
+.request-success {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  text-align: center;
+}
+
+.request-success[hidden] {
+  display: none;
+}
+
+.request-success__mascot {
+  width: 170px;
+  height: auto;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.3));
+}
+
+.request-success__text {
+  max-width: 340px;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--color-yellow);
+}
+
 .request-step__bubble {
   align-self: flex-start;
   max-width: 92%;

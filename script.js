@@ -261,10 +261,25 @@ const requestTitleEl = document.querySelector("[data-request-title]");
 const requestMessageEl = document.querySelector("[data-request-message]");
 const requestForm = document.querySelector("[data-request-form]");
 const requestNote = document.querySelector("[data-request-note]");
+const requestSuccess = document.querySelector("[data-request-success]");
+const requestSuccessText = document.querySelector("[data-request-success-text]");
 
 let lastRequestTrigger = null;
 let requestProjectTitle = "";
 let requestFormShownAt = null;
+
+const showRequestSuccess = (message) => {
+  if (requestForm) requestForm.hidden = true;
+  if (requestSuccess) {
+    requestSuccess.hidden = false;
+    if (requestSuccessText) requestSuccessText.textContent = message;
+  }
+};
+
+const showRequestForm = () => {
+  if (requestSuccess) requestSuccess.hidden = true;
+  if (requestForm) requestForm.hidden = false;
+};
 
 document.querySelectorAll("[data-pill-group]").forEach((group) => {
   const multi = group.hasAttribute("data-multi");
@@ -339,6 +354,7 @@ const openRequestModal = (title) => {
   if (requestNote) requestNote.textContent = "";
   resetRequestPills();
   showRequestStep(0);
+  showRequestForm();
 
   requestModal.classList.add("is-open");
   requestModal.setAttribute("aria-hidden", "false");
@@ -405,10 +421,10 @@ if (requestForm && requestNote) {
     event.preventDefault();
 
     if (isLikelySpam(requestForm, requestFormShownAt)) {
-      requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
       resetRequestPills();
       showRequestStep(0);
+      showRequestSuccess("Demande envoyée ! On revient vers vous très vite. 🎉");
       return;
     }
 
@@ -446,10 +462,10 @@ if (requestForm && requestNote) {
 
     try {
       await submitToContactServer(payload);
-      requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
       resetRequestPills();
       showRequestStep(0);
+      showRequestSuccess("Demande envoyée ! On revient vers vous très vite. 🎉");
     } catch {
       requestNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }
