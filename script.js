@@ -257,9 +257,12 @@ document.addEventListener("keydown", (event) => {
    a mascot + confirmation text, used by both the request modal and the
    plain contact form below. */
 
-const createSuccessToggler = (form, success, successText) => ({
+const createSuccessToggler = (form, success, successText, extraHideEls = []) => ({
   showSuccess: (message) => {
     if (form) form.hidden = true;
+    extraHideEls.forEach((el) => {
+      if (el) el.hidden = true;
+    });
     if (success) {
       success.hidden = false;
       if (successText) successText.textContent = message;
@@ -267,6 +270,9 @@ const createSuccessToggler = (form, success, successText) => ({
   },
   showForm: () => {
     if (success) success.hidden = true;
+    extraHideEls.forEach((el) => {
+      if (el) el.hidden = false;
+    });
     if (form) form.hidden = false;
   },
 });
@@ -275,14 +281,19 @@ const createSuccessToggler = (form, success, successText) => ({
    beyond name/email/optional details) */
 
 const requestModal = document.querySelector("[data-request-modal]");
-const requestTitleEl = document.querySelector("[data-request-title]");
+// Scoped to the modal — a bare [data-request-title] selector would also match
+// the "Je veux ce projet" trigger buttons in the Réalisations cards, which
+// carry the same attribute (as a data value) for a different purpose.
+const requestTitleEl = requestModal ? requestModal.querySelector("[data-request-title]") : null;
+const requestKickerEl = requestModal ? requestModal.querySelector(".request-modal__kicker") : null;
 const requestMessageEl = document.querySelector("[data-request-message]");
 const requestForm = document.querySelector("[data-request-form]");
 const requestNote = document.querySelector("[data-request-note]");
 const requestSuccessToggler = createSuccessToggler(
   requestForm,
   document.querySelector("[data-request-success]"),
-  document.querySelector("[data-request-success-text]")
+  document.querySelector("[data-request-success-text]"),
+  [requestKickerEl, requestTitleEl]
 );
 const showRequestSuccess = requestSuccessToggler.showSuccess;
 const showRequestForm = requestSuccessToggler.showForm;
@@ -434,7 +445,7 @@ if (requestForm && requestNote) {
       requestForm.reset();
       resetRequestPills();
       showRequestStep(0);
-      showRequestSuccess("Demande envoyée ! On revient vers vous très vite. 🎉");
+      showRequestSuccess("Demande envoyée ! On revient vers vous très vite.");
       return;
     }
 
@@ -475,7 +486,7 @@ if (requestForm && requestNote) {
       requestForm.reset();
       resetRequestPills();
       showRequestStep(0);
-      showRequestSuccess("Demande envoyée ! On revient vers vous très vite. 🎉");
+      showRequestSuccess("Demande envoyée ! On revient vers vous très vite.");
     } catch {
       requestNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }
@@ -499,7 +510,7 @@ if (contactForm && contactNote) {
 
     if (isLikelySpam(contactForm, contactFormShownAt)) {
       contactForm.reset();
-      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite. 🎉");
+      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite.");
       return;
     }
 
@@ -517,7 +528,7 @@ if (contactForm && contactNote) {
     try {
       await submitToContactServer(payload);
       contactForm.reset();
-      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite. 🎉");
+      contactSuccessToggler.showSuccess("Message envoyé ! On revient vers vous très vite.");
     } catch {
       contactNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }
