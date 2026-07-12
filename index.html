@@ -68,8 +68,27 @@
             <a href="#contact">Contact</a>
           </nav>
 
+          <button
+            class="nav-toggle"
+            type="button"
+            data-nav-toggle
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <span></span><span></span><span></span>
+          </button>
+
           <a class="button button--small" data-sound="coin" href="#contact">Créer mon projet</a>
         </div>
+
+        <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-hidden="true" aria-label="Navigation mobile">
+          <a href="#services" data-mobile-nav-link>Services</a>
+          <a href="#realisations" data-mobile-nav-link>Réalisations</a>
+          <a href="#clients" data-mobile-nav-link>Clients</a>
+          <a href="#apropos" data-mobile-nav-link>À propos</a>
+          <a href="#contact" data-mobile-nav-link>Contact</a>
+        </nav>
       </header>
 
       <main id="main">
@@ -129,55 +148,62 @@
             </div>
 
             <div class="services-list">
-              <article class="service-row reveal">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+              <details class="service-row reveal">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Jeux personnalisés</h3>
-                  <p>Expériences ludiques sur mesure pour faire vivre une marque ou un événement.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="40">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Expériences ludiques sur mesure pour faire vivre une marque ou un événement.</p>
+              </details>
+              <details class="service-row reveal" data-delay="40">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Location de bornes arcade</h3>
-                  <p>Bornes premium prêtes à attirer une file d'attente et des scores à battre.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="80">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Bornes premium prêtes à attirer une file d'attente et des scores à battre.</p>
+              </details>
+              <details class="service-row reveal" data-delay="80">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Animations événementielles</h3>
-                  <p>Festivals, lancements, team building : des activations qui génèrent trafic et bonne humeur.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="120">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Festivals, lancements, team building : des activations qui génèrent trafic et bonne humeur.</p>
+              </details>
+              <details class="service-row reveal" data-delay="120">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Selfie Box</h3>
-                  <p>Captures instantanées, filtres animés et souvenirs prêts à partager.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="160">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Captures instantanées, filtres animés et souvenirs prêts à partager.</p>
+              </details>
+              <details class="service-row reveal" data-delay="160">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Jeux pédagogiques</h3>
-                  <p>Apprendre en jouant, avec des mécaniques pensées pour chaque public.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="200">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Apprendre en jouant, avec des mécaniques pensées pour chaque public.</p>
+              </details>
+              <details class="service-row reveal" data-delay="200">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Visites interactives</h3>
-                  <p>Un parcours qui transforme la visite en véritable terrain de jeu.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="240">
-                <span class="service-row__dot" aria-hidden="true"></span>
-                <div class="service-row__body">
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Un parcours qui transforme la visite en véritable terrain de jeu.</p>
+              </details>
+              <details class="service-row reveal" data-delay="240">
+                <summary class="service-row__summary">
+                  <span class="service-row__dot" aria-hidden="true"></span>
                   <h3>Développement sur mesure</h3>
-                  <p>Interfaces, scoring et écrans live adaptés à chaque projet.</p>
-                </div>
-              </article>
+                  <span class="service-row__chevron" aria-hidden="true"></span>
+                </summary>
+                <p class="service-row__desc">Interfaces, scoring et écrans live adaptés à chaque projet.</p>
+              </details>
             </div>
           </div>
         </section>

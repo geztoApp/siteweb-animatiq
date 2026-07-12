@@ -1,5 +1,52 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* Mobile nav (hamburger toggle) */
+
+const navToggle = document.querySelector("[data-nav-toggle]");
+const mobileNav = document.querySelector("[data-mobile-nav]");
+
+const closeMobileNav = () => {
+  if (!navToggle || !mobileNav) return;
+  navToggle.setAttribute("aria-expanded", "false");
+  mobileNav.classList.remove("is-open");
+  mobileNav.setAttribute("aria-hidden", "true");
+};
+
+if (navToggle && mobileNav) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = mobileNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileNav.setAttribute("aria-hidden", String(!isOpen));
+  });
+
+  document.querySelectorAll("[data-mobile-nav-link]").forEach((link) => {
+    link.addEventListener("click", closeMobileNav);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMobileNav();
+  });
+}
+
+/* Services list accordion (mobile only). Below 768px each .service-row is a
+   collapsed <details>; at 768px+ it should always read as a flat list, which
+   requires actually setting the open property — CSS alone can't override a
+   browser's native rendering of closed <details> content. */
+
+const serviceRowBreakpoint = window.matchMedia("(min-width: 768px)");
+const serviceRows = document.querySelectorAll(".service-row");
+
+const syncServiceRows = (isDesktop) => {
+  serviceRows.forEach((row) => {
+    row.open = isDesktop;
+  });
+};
+
+if (serviceRows.length) {
+  syncServiceRows(serviceRowBreakpoint.matches);
+  serviceRowBreakpoint.addEventListener("change", (event) => syncServiceRows(event.matches));
+}
+
 /* Intro boot sequence */
 
 const intro = document.querySelector("[data-intro]");
