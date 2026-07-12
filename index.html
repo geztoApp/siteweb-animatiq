@@ -16,7 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=17" />
+    <link rel="stylesheet" href="styles.css?v=25" />
   </head>
   <body>
     <a class="skip-link" href="#main">Aller au contenu</a>
@@ -61,11 +61,11 @@
           </a>
 
           <nav class="main-nav" aria-label="Navigation principale">
-            <a href="#services"><span>01</span>Services</a>
-            <a href="#realisations"><span>02</span>Réalisations</a>
-            <a href="#clients"><span>03</span>Clients</a>
-            <a href="#apropos"><span>04</span>À propos</a>
-            <a href="#contact"><span>05</span>Contact</a>
+            <a href="#services">Services</a>
+            <a href="#realisations">Réalisations</a>
+            <a href="#clients">Clients</a>
+            <a href="#apropos">À propos</a>
+            <a href="#contact">Contact</a>
           </nav>
 
           <a class="button button--small" data-sound="coin" href="#contact">Créer mon projet</a>
@@ -79,7 +79,7 @@
           <div class="container hero-layout">
             <div class="hero-head reveal">
               <h1>
-                Nous créons des <span class="hero-pop">expériences</span>
+                <span class="hero-pop">Expériences</span>
                 interactives inoubliables.
               </h1>
               <div class="hero-actions">
@@ -123,7 +123,6 @@
                 <img class="services-mascot__image" src="assets/images/mascotte-borne.png" alt="" />
               </div>
               <div class="section-heading reveal">
-                <span class="section-index" aria-hidden="true">01</span>
                 <p class="eyebrow">Services</p>
                 <h2>Des dispositifs conçus pour donner envie de jouer et revenir.</h2>
               </div>
@@ -131,56 +130,49 @@
 
             <div class="services-list">
               <article class="service-row reveal">
-                <span class="service-row__index">01</span>
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Jeux personnalisés</h3>
                   <p>Expériences ludiques sur mesure pour faire vivre une marque ou un événement.</p>
                 </div>
               </article>
               <article class="service-row reveal" data-delay="40">
-                <span class="service-row__index">02</span>
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Location de bornes arcade</h3>
                   <p>Bornes premium prêtes à attirer une file d'attente et des scores à battre.</p>
                 </div>
               </article>
               <article class="service-row reveal" data-delay="80">
-                <span class="service-row__index">03</span>
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
-                  <h3>Animations festivals</h3>
-                  <p>Activations visuelles et sociales pensées pour générer trafic et bonne humeur.</p>
+                  <h3>Animations événementielles</h3>
+                  <p>Festivals, lancements, team building : des activations qui génèrent trafic et bonne humeur.</p>
                 </div>
               </article>
               <article class="service-row reveal" data-delay="120">
-                <span class="service-row__index">04</span>
-                <div class="service-row__body">
-                  <h3>Animations entreprises</h3>
-                  <p>Lancements, salons, team building : des dispositifs interactifs mémorables.</p>
-                </div>
-              </article>
-              <article class="service-row reveal" data-delay="160">
-                <span class="service-row__index">05</span>
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Selfie Box</h3>
                   <p>Captures instantanées, filtres animés et souvenirs prêts à partager.</p>
                 </div>
               </article>
-              <article class="service-row reveal" data-delay="200">
-                <span class="service-row__index">06</span>
+              <article class="service-row reveal" data-delay="160">
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Jeux pédagogiques</h3>
                   <p>Apprendre en jouant, avec des mécaniques pensées pour chaque public.</p>
                 </div>
               </article>
-              <article class="service-row reveal" data-delay="240">
-                <span class="service-row__index">07</span>
+              <article class="service-row reveal" data-delay="200">
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Visites interactives</h3>
                   <p>Un parcours qui transforme la visite en véritable terrain de jeu.</p>
                 </div>
               </article>
-              <article class="service-row reveal" data-delay="280">
-                <span class="service-row__index">08</span>
+              <article class="service-row reveal" data-delay="240">
+                <span class="service-row__dot" aria-hidden="true"></span>
                 <div class="service-row__body">
                   <h3>Développement sur mesure</h3>
                   <p>Interfaces, scoring et écrans live adaptés à chaque projet.</p>
@@ -193,7 +185,6 @@
         <section class="section section--alt" id="realisations">
           <div class="container">
             <div class="section-heading reveal">
-              <span class="section-index" aria-hidden="true">02</span>
               <p class="eyebrow">Réalisations</p>
               <h2>Chaque projet est pensé comme un mini-univers jouable.</h2>
             </div>
@@ -234,7 +225,15 @@
                     <li>Terroir</li>
                     <li>Patrimoine</li>
                   </ul>
-                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                  <button
+                    class="text-link"
+                    type="button"
+                    data-sound="click"
+                    data-request-trigger
+                    data-request-title="Jeux Caves Ouvertes"
+                  >
+                    Je veux ce projet
+                  </button>
                 </div>
               </article>
 
@@ -274,7 +273,15 @@
                     <li>Pédagogique</li>
                     <li>Famille</li>
                   </ul>
-                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                  <button
+                    class="text-link"
+                    type="button"
+                    data-sound="click"
+                    data-request-trigger
+                    data-request-title="Chasse aux Bonbons"
+                  >
+                    Je veux ce projet
+                  </button>
                 </div>
               </article>
 
@@ -314,7 +321,15 @@
                     <li>Bataille légendaire</li>
                     <li>Patrimoine genevois</li>
                   </ul>
-                  <a class="text-link" data-sound="click" href="#contact">Je veux ce projet</a>
+                  <button
+                    class="text-link"
+                    type="button"
+                    data-sound="click"
+                    data-request-trigger
+                    data-request-title="L'Escalade 1602"
+                  >
+                    Je veux ce projet
+                  </button>
                 </div>
               </article>
             </div>
@@ -324,9 +339,8 @@
         <section class="section" id="clients">
           <div class="container clients-layout">
             <div class="section-heading reveal">
-              <span class="section-index" aria-hidden="true">03</span>
               <p class="eyebrow">Ils nous font confiance</p>
-              <h2>Des communes, festivals et vignerons genevois qui ont vécu l'expérience.</h2>
+              <h2>Nos premières collaborations, ici à Genève.</h2>
             </div>
 
             <div class="logo-grid reveal" data-delay="100">
@@ -358,49 +372,9 @@
           </div>
         </section>
 
-        <section class="section section--stats" id="compteur">
-          <div class="container">
-            <div class="section-heading reveal">
-              <span class="section-index" aria-hidden="true">04</span>
-              <p class="eyebrow">
-                Compteur live
-                <span class="eyebrow__live"><span></span>Supabase</span>
-              </p>
-              <h2>Des chiffres qui montrent qu'une expérience bien pensée continue de vivre.</h2>
-            </div>
-
-            <div class="scoreboard">
-              <div class="scoreboard__hero reveal">
-                <span class="scoreboard__icon" aria-hidden="true">🎮</span>
-                <strong data-count="28472">0</strong>
-                <p>Parties jouées</p>
-              </div>
-              <div class="scoreboard__grid">
-                <div class="scoreboard__item reveal" data-delay="60">
-                  <strong data-count="19340">0</strong>
-                  <p>Joueurs</p>
-                </div>
-                <div class="scoreboard__item reveal" data-delay="120">
-                  <strong data-count="8240">0</strong>
-                  <p>Selfies téléchargés</p>
-                </div>
-                <div class="scoreboard__item reveal" data-delay="180">
-                  <strong data-count="186">0</strong>
-                  <p>Événements réalisés</p>
-                </div>
-                <div class="scoreboard__item reveal" data-delay="240">
-                  <strong data-count="47">0</strong>
-                  <p>Jeux développés</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section class="section" id="apropos">
           <div class="container">
             <div class="section-heading reveal">
-              <span class="section-index" aria-hidden="true">05</span>
               <p class="eyebrow">À propos</p>
               <h2>AnimatiQ est née d'une idée toute simple.</h2>
             </div>
@@ -471,8 +445,7 @@
         <section class="section section--contact" id="contact">
           <div class="container contact-shell reveal">
             <div class="contact-copy">
-              <span class="section-index" aria-hidden="true">06</span>
-              <p class="eyebrow">Insert coin</p>
+              <p class="eyebrow">Contact</p>
               <h2>Parlons d'une expérience que personne n'oubliera.</h2>
               <p>
                 Décris ton événement, ton public et ton envie : on revient vers
@@ -481,13 +454,17 @@
             </div>
 
             <form class="contact-form" data-contact-form>
+              <label class="visually-hidden" aria-hidden="true">
+                Ne remplissez pas ce champ
+                <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
+              </label>
               <label>
                 Nom
-                <input type="text" name="name" placeholder="Votre nom" required />
+                <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
               </label>
               <label>
                 Email
-                <input type="email" name="email" placeholder="vous@exemple.fr" required />
+                <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
               </label>
               <label>
                 Projet
@@ -495,6 +472,7 @@
                   name="project"
                   rows="5"
                   placeholder="Décrivez l'expérience interactive que vous imaginez"
+                  maxlength="2000"
                   required
                 ></textarea>
               </label>
@@ -508,8 +486,8 @@
       <footer class="site-footer">
         <div class="container footer-row">
           <div>
-            <img class="footer-logo" src="assets/images/logo.png" alt="AnimatiQ" />
-            <p>Studio de création d'expériences interactives.</p>
+            <img class="footer-logo" src="assets/images/logo-footer.png" alt="AnimatiQ" />
+            <p>Studio de création d'expériences interactives</p>
           </div>
           <nav class="footer-nav" aria-label="Navigation du pied de page">
             <a href="#services">Services</a>
@@ -518,11 +496,87 @@
             <a href="#contact">Contact</a>
           </nav>
           <div class="footer-wave">
-            <img class="mascot-image mascot-image--footer" src="assets/images/mascotte.png" alt="" />
-            <span>À bientôt 👋</span>
+            <img class="mascot-image mascot-image--footer" src="assets/mascote-footer.png" alt="" />
           </div>
         </div>
       </footer>
+    </div>
+
+    <div class="request-modal" data-request-modal aria-hidden="true">
+      <div class="request-modal__backdrop" data-request-modal-close></div>
+      <div
+        class="request-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Faire une demande"
+      >
+        <button class="request-modal__close" type="button" data-request-modal-close aria-label="Fermer">
+          ✕
+        </button>
+        <p class="request-modal__kicker">Votre demande</p>
+        <h3 data-request-title>Un projet sur mesure</h3>
+
+        <div class="request-chat" data-request-chat>
+          <div class="request-chat__messages" data-request-chat-messages></div>
+          <form class="request-chat__composer" data-request-chat-form>
+            <input
+              type="text"
+              data-request-chat-input
+              placeholder="Écrivez votre réponse..."
+              autocomplete="off"
+              maxlength="500"
+            />
+            <button class="button button--small" data-sound="click" type="submit">Envoyer</button>
+          </form>
+          <p class="request-chat__fallback" data-request-chat-fallback hidden>
+            On dirait qu'on n'arrive pas à joindre notre assistant.
+            <button class="text-link" type="button" data-request-skip-chat>
+              Remplir le formulaire directement
+            </button>
+          </p>
+        </div>
+
+        <form class="contact-form" data-request-form hidden>
+          <label class="visually-hidden" aria-hidden="true">
+            Ne remplissez pas ce champ
+            <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
+          </label>
+          <label>
+            Nom
+            <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
+          </label>
+          <label>
+            Type d'événement
+            <select name="event-type" required>
+              <option value="" disabled selected>Choisissez une option</option>
+              <option value="festival">Festival</option>
+              <option value="entreprise">Entreprise</option>
+              <option value="ecole">École</option>
+              <option value="commune">Commune</option>
+              <option value="association">Association</option>
+              <option value="anniversaire">Anniversaire</option>
+              <option value="autre">Autre</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea
+              name="message"
+              rows="4"
+              placeholder="Parlez-nous de votre événement..."
+              data-request-message
+              maxlength="2000"
+              required
+            ></textarea>
+          </label>
+          <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
+          <p class="contact-form__note" data-request-note role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
 
     <div class="game-modal" data-game-modal aria-hidden="true">
@@ -537,6 +591,9 @@
           ✕
         </button>
         <div class="game-modal__frame" data-game-modal-frame></div>
+        <div class="game-modal__hint" data-game-modal-hint aria-hidden="true">
+          <span>🖱️ Cliquez pour jouer</span>
+        </div>
       </div>
     </div>
 
