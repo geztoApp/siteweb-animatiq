@@ -267,14 +267,22 @@ let requestProjectTitle = "";
 let requestFormShownAt = null;
 
 document.querySelectorAll("[data-pill-group]").forEach((group) => {
+  const multi = group.hasAttribute("data-multi");
   group.addEventListener("click", (event) => {
     const button = event.target.closest(".pill-choice");
     if (!button || !group.contains(button)) return;
-    group.querySelectorAll(".pill-choice").forEach((btn) => {
-      const selected = btn === button;
-      btn.classList.toggle("is-selected", selected);
-      btn.setAttribute("aria-pressed", String(selected));
-    });
+
+    if (multi) {
+      const selected = !button.classList.contains("is-selected");
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    } else {
+      group.querySelectorAll(".pill-choice").forEach((btn) => {
+        const selected = btn === button;
+        btn.classList.toggle("is-selected", selected);
+        btn.setAttribute("aria-pressed", String(selected));
+      });
+    }
   });
 });
 
@@ -286,6 +294,40 @@ const resetRequestPills = () => {
   });
 };
 
+/* Step-by-step wizard: event type (multi-select) → concept (single-select) → details */
+
+const REQUEST_STEP_ORDER = ["event-type", "concept", "details"];
+const requestSteps = requestForm ? Array.from(requestForm.querySelectorAll("[data-request-step]")) : [];
+let requestStepIndex = 0;
+
+const showRequestStep = (index) => {
+  requestStepIndex = index;
+  requestSteps.forEach((step) => {
+    step.hidden = step.dataset.requestStep !== REQUEST_STEP_ORDER[index];
+  });
+};
+
+document.querySelectorAll("[data-step-next]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const stepName = REQUEST_STEP_ORDER[requestStepIndex];
+    const group = requestForm.querySelector(`[data-pill-group="${stepName}"]`);
+    const hasSelection = group && group.querySelector(".pill-choice.is-selected");
+    if (!hasSelection) {
+      if (requestNote) requestNote.textContent = "Merci de choisir au moins une option pour continuer.";
+      return;
+    }
+    if (requestNote) requestNote.textContent = "";
+    showRequestStep(Math.min(requestStepIndex + 1, REQUEST_STEP_ORDER.length - 1));
+  });
+});
+
+document.querySelectorAll("[data-step-back]").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (requestNote) requestNote.textContent = "";
+    showRequestStep(Math.max(requestStepIndex - 1, 0));
+  });
+});
+
 const openRequestModal = (title) => {
   if (!requestModal) return;
 
@@ -296,6 +338,7 @@ const openRequestModal = (title) => {
   if (requestMessageEl) requestMessageEl.value = "";
   if (requestNote) requestNote.textContent = "";
   resetRequestPills();
+  showRequestStep(0);
 
   requestModal.classList.add("is-open");
   requestModal.setAttribute("aria-hidden", "false");
@@ -365,21 +408,25 @@ if (requestForm && requestNote) {
       requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
       resetRequestPills();
+      showRequestStep(0);
       return;
     }
 
-    const eventPill = requestForm.querySelector('[data-pill-group="event-type"] .pill-choice.is-selected');
+    const eventPills = Array.from(
+      requestForm.querySelectorAll('[data-pill-group="event-type"] .pill-choice.is-selected')
+    );
     const conceptPill = requestForm.querySelector('[data-pill-group="concept"] .pill-choice.is-selected');
 
-    if (!eventPill || !conceptPill) {
-      requestNote.textContent = "Merci de choisir un type d'événement et un thème.";
+    if (!eventPills.length || !conceptPill) {
+      requestNote.textContent = "Merci de compléter les étapes précédentes.";
       return;
     }
 
     const formData = new FormData(requestForm);
     const extra = (formData.get("message") || "").trim();
+    const eventLabels = eventPills.map((pill) => pill.textContent.trim()).join(", ");
     const composedMessage = [
-      `Type d'événement : ${eventPill.textContent.trim()}`,
+      `Type d'événement : ${eventLabels}`,
       `Le jeu doit mettre en avant : ${conceptPill.textContent.trim()}`,
       extra,
     ]
@@ -389,7 +436,7 @@ if (requestForm && requestNote) {
     const payload = {
       name: formData.get("name"),
       email: formData.get("email"),
-      eventType: eventPill.dataset.value,
+      eventType: eventPills.map((pill) => pill.dataset.value),
       concept: conceptPill.dataset.value,
       message: composedMessage,
       company: formData.get("company") || "",
@@ -402,6 +449,7 @@ if (requestForm && requestNote) {
       requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
       resetRequestPills();
+      showRequestStep(0);
     } catch {
       requestNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }

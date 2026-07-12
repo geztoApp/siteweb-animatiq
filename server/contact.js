@@ -12,7 +12,7 @@ const MIN_HUMAN_FILL_TIME_MS = 2000;
 const MAX_LENGTHS = {
   name: 100,
   email: 150,
-  eventType: 30,
+  eventType: 100,
   concept: 20,
   message: 2000,
   source: 60,
@@ -31,17 +31,34 @@ const isRateLimited = createRateLimiter(60 * 60 * 1000, 10);
 // sane downstream use — log file, future email sending — wants anyway).
 const sanitizeLine = (value) => String(value).replace(/[\r\n]+/g, " ").trim();
 
+// eventType comes in as a single string from the plain contact form, or an
+// array of strings from the request modal's multi-select pills. Normalizes
+// both into one sanitized, comma-joined string; returns null if malformed.
+const normalizeEventType = (value) => {
+  if (Array.isArray(value)) {
+    if (value.length > EVENT_TYPES.length) return null;
+    const items = value.map((v) => (typeof v === "string" ? sanitizeLine(v) : ""));
+    if (items.some((v) => !EVENT_TYPES.includes(v) || v === "")) return null;
+    return [...new Set(items)].join(", ");
+  }
+  if (typeof value === "string") {
+    const v = sanitizeLine(value);
+    return EVENT_TYPES.includes(v) ? v : null;
+  }
+  return "";
+};
+
 const validateSubmission = (body) => {
   const name = typeof body.name === "string" ? sanitizeLine(body.name) : "";
   const email = typeof body.email === "string" ? sanitizeLine(body.email) : "";
-  const eventType = typeof body.eventType === "string" ? sanitizeLine(body.eventType) : "";
+  const eventType = normalizeEventType(body.eventType);
   const concept = typeof body.concept === "string" ? sanitizeLine(body.concept) : "";
   const message = typeof body.message === "string" ? body.message.trim() : "";
   const source = typeof body.source === "string" ? sanitizeLine(body.source) : "contact";
 
   if (!name || name.length > MAX_LENGTHS.name) return null;
   if (!email || email.length > MAX_LENGTHS.email || !isValidEmail(email)) return null;
-  if (eventType.length > MAX_LENGTHS.eventType || !EVENT_TYPES.includes(eventType)) return null;
+  if (eventType === null || eventType.length > MAX_LENGTHS.eventType) return null;
   if (concept.length > MAX_LENGTHS.concept || !CONCEPTS.includes(concept)) return null;
   if (!message || message.length > MAX_LENGTHS.message) return null;
   if (source.length > MAX_LENGTHS.source) return null;

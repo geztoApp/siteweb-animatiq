@@ -1076,14 +1076,48 @@ p {
   color: var(--color-white);
 }
 
-.pill-field {
+.request-step {
   display: grid;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
-.pill-field__label {
-  font-weight: 700;
+.request-step[hidden] {
+  display: none;
+}
+
+.request-step__bubble {
+  align-self: flex-start;
+  max-width: 92%;
+  margin: 0;
+  padding: 12px 18px;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--color-white);
+}
+
+.request-step__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.request-step__actions [data-step-next],
+.request-step__actions button[type="submit"] {
+  margin-left: auto;
+}
+
+.request-step__actions .text-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.request-step__actions .text-link:hover,
+.request-step__actions .text-link:focus-visible {
+  color: var(--color-yellow);
 }
 
 .pill-group {

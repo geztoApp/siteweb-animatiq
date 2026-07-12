@@ -522,9 +522,11 @@
             <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
           </label>
 
-          <div class="pill-field">
-            <span class="pill-field__label">Type d'événement</span>
-            <div class="pill-group" data-pill-group="event-type" role="radiogroup" aria-label="Type d'événement">
+          <div class="request-step" data-request-step="event-type">
+            <p class="request-step__bubble">
+              Quel type d'événement organisez-vous ? Vous pouvez cocher plusieurs réponses. 🎪
+            </p>
+            <div class="pill-group" data-pill-group="event-type" data-multi role="group" aria-label="Type d'événement">
               <button type="button" class="pill-choice" data-value="festival" aria-pressed="false">Festival</button>
               <button type="button" class="pill-choice" data-value="entreprise" aria-pressed="false">Entreprise</button>
               <button type="button" class="pill-choice" data-value="ecole" aria-pressed="false">École</button>
@@ -533,10 +535,13 @@
               <button type="button" class="pill-choice" data-value="anniversaire" aria-pressed="false">Anniversaire</button>
               <button type="button" class="pill-choice" data-value="autre" aria-pressed="false">Autre</button>
             </div>
+            <div class="request-step__actions">
+              <button type="button" class="button button--small" data-step-next data-sound="click">Continuer</button>
+            </div>
           </div>
 
-          <div class="pill-field">
-            <span class="pill-field__label">Le jeu doit mettre en avant...</span>
+          <div class="request-step" data-request-step="concept" hidden>
+            <p class="request-step__bubble">Super ! Et qu'est-ce que le jeu doit mettre en avant ? 🎨</p>
             <div class="pill-group" data-pill-group="concept" role="radiogroup" aria-label="Thème du jeu">
               <button type="button" class="pill-choice" data-value="village" aria-pressed="false">Un lieu, une commune</button>
               <button type="button" class="pill-choice" data-value="histoire" aria-pressed="false">Une histoire, un patrimoine</button>
@@ -545,27 +550,38 @@
               <button type="button" class="pill-choice" data-value="melange" aria-pressed="false">Un mélange de tout ça</button>
               <button type="button" class="pill-choice" data-value="libre" aria-pressed="false">Animation libre, sans thème</button>
             </div>
+            <div class="request-step__actions">
+              <button type="button" class="text-link" data-step-back>← Retour</button>
+              <button type="button" class="button button--small" data-step-next data-sound="click">Continuer</button>
+            </div>
           </div>
 
-          <label>
-            Nom
-            <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
-          </label>
-          <label>
-            Précisions <span class="contact-form__optional">(facultatif)</span>
-            <textarea
-              name="message"
-              rows="3"
-              placeholder="Date, nombre de participants, inspirations..."
-              data-request-message
-              maxlength="2000"
-            ></textarea>
-          </label>
-          <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
+          <div class="request-step" data-request-step="details" hidden>
+            <p class="request-step__bubble">Parfait, encore deux infos et c'est envoyé ! 🚀</p>
+            <label>
+              Nom
+              <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
+            </label>
+            <label>
+              Précisions <span class="contact-form__optional">(facultatif)</span>
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="Date, nombre de participants, inspirations..."
+                data-request-message
+                maxlength="2000"
+              ></textarea>
+            </label>
+            <div class="request-step__actions">
+              <button type="button" class="text-link" data-step-back>← Retour</button>
+              <button class="button" data-sound="success" type="submit">Envoyer la demande</button>
+            </div>
+          </div>
+
           <p class="contact-form__note" data-request-note role="status" aria-live="polite"></p>
         </form>
       </div>
