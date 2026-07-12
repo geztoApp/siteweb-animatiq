@@ -13,11 +13,13 @@ const MAX_LENGTHS = {
   name: 100,
   email: 150,
   eventType: 30,
+  concept: 20,
   message: 2000,
   source: 60,
 };
 
 const EVENT_TYPES = ["festival", "entreprise", "ecole", "commune", "association", "anniversaire", "autre", ""];
+const CONCEPTS = ["village", "histoire", "metier", "edifice", "melange", "libre", ""];
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -33,16 +35,18 @@ const validateSubmission = (body) => {
   const name = typeof body.name === "string" ? sanitizeLine(body.name) : "";
   const email = typeof body.email === "string" ? sanitizeLine(body.email) : "";
   const eventType = typeof body.eventType === "string" ? sanitizeLine(body.eventType) : "";
+  const concept = typeof body.concept === "string" ? sanitizeLine(body.concept) : "";
   const message = typeof body.message === "string" ? body.message.trim() : "";
   const source = typeof body.source === "string" ? sanitizeLine(body.source) : "contact";
 
   if (!name || name.length > MAX_LENGTHS.name) return null;
   if (!email || email.length > MAX_LENGTHS.email || !isValidEmail(email)) return null;
   if (eventType.length > MAX_LENGTHS.eventType || !EVENT_TYPES.includes(eventType)) return null;
+  if (concept.length > MAX_LENGTHS.concept || !CONCEPTS.includes(concept)) return null;
   if (!message || message.length > MAX_LENGTHS.message) return null;
   if (source.length > MAX_LENGTHS.source) return null;
 
-  return { name, email, eventType, message, source };
+  return { name, email, eventType, concept, message, source };
 };
 
 // A honeypot field bots often fill in, plus a minimum time-on-form check —
@@ -99,7 +103,7 @@ const renderHtml = (submissions) => `<!DOCTYPE html>
       .map(
         (s) => `
       <div class="entry">
-        <div class="meta">${escapeHtml(s.receivedAt)} — ${escapeHtml(s.source)}${s.eventType ? " — " + escapeHtml(s.eventType) : ""}</div>
+        <div class="meta">${escapeHtml(s.receivedAt)} — ${escapeHtml(s.source)}${s.eventType ? " — " + escapeHtml(s.eventType) : ""}${s.concept ? " — " + escapeHtml(s.concept) : ""}</div>
         <div><span class="name">${escapeHtml(s.name)}</span> — ${escapeHtml(s.email)}</div>
         <div class="message">${escapeHtml(s.message)}</div>
       </div>`

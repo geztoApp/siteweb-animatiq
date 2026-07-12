@@ -879,6 +879,11 @@ p {
   color: var(--color-white);
 }
 
+.contact-form__optional {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
@@ -1071,119 +1076,46 @@ p {
   color: var(--color-white);
 }
 
-[data-request-chat][hidden],
-[data-request-form][hidden] {
-  display: none;
-}
-
-.request-chat {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.request-chat__messages {
-  display: flex;
-  flex-direction: column;
+.pill-field {
+  display: grid;
   gap: 10px;
-  max-height: 320px;
-  overflow-y: auto;
-  padding-right: 4px;
 }
 
-.request-chat__bubble {
-  max-width: 85%;
-  padding: 12px 16px;
-  border-radius: 18px;
-  line-height: 1.5;
-  font-size: 0.92rem;
-}
-
-.request-chat__bubble--assistant {
-  align-self: flex-start;
-  background: rgba(255, 255, 255, 0.1);
-  border-bottom-left-radius: 4px;
-}
-
-.request-chat__bubble--user {
-  align-self: flex-end;
-  background: var(--color-red);
+.pill-field__label {
+  font-weight: 700;
   color: var(--color-white);
-  border-bottom-right-radius: 4px;
 }
 
-.request-chat__bubble--typing {
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  padding: 16px;
-}
-
-.request-chat__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
-  animation: chat-typing 1.2s ease-in-out infinite;
-}
-
-.request-chat__dot:nth-child(2) {
-  animation-delay: 0.15s;
-}
-
-.request-chat__dot:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.request-chat__composer {
+.pill-group {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.request-chat__composer input {
-  flex: 1;
-  min-width: 0;
-  padding: 14px 18px;
+.pill-choice {
+  padding: 10px 16px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--color-white);
-  transition: border-color var(--transition), transform var(--transition);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
 
-.request-chat__composer input::placeholder {
-  color: rgba(255, 255, 255, 0.48);
-}
-
-.request-chat__composer input:focus {
-  border-color: var(--color-yellow);
+.pill-choice:hover,
+.pill-choice:focus-visible {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
   outline: none;
 }
 
-.request-chat__fallback {
-  display: grid;
-  gap: 6px;
-  text-align: center;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.request-chat__fallback .text-link {
-  justify-self: center;
-  color: var(--color-yellow);
-}
-
-@keyframes chat-typing {
-  0%,
-  60%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.5;
-  }
-  30% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
+.pill-choice.is-selected {
+  background: var(--color-yellow);
+  border-color: var(--color-yellow);
+  color: var(--color-blue);
 }
 
 /* Game demo modal */

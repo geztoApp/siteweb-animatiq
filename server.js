@@ -3,7 +3,6 @@ const fs = require("fs");
 const path = require("path");
 
 const counters = require("./server/counters");
-const chat = require("./server/chat");
 const contact = require("./server/contact");
 
 const PORT = process.env.PORT || 80;
@@ -77,7 +76,6 @@ const server = http.createServer(async (req, res) => {
 
   if (url.pathname.startsWith("/api/")) {
     if (await counters.handleApi(req, res, url)) return;
-    if (await chat.handleApi(req, res, url)) return;
     if (await contact.handleApi(req, res, url)) return;
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "not found" }));

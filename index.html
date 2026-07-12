@@ -516,31 +516,37 @@
         <p class="request-modal__kicker">Votre demande</p>
         <h3 data-request-title>Un projet sur mesure</h3>
 
-        <div class="request-chat" data-request-chat>
-          <div class="request-chat__messages" data-request-chat-messages></div>
-          <form class="request-chat__composer" data-request-chat-form>
-            <input
-              type="text"
-              data-request-chat-input
-              placeholder="Écrivez votre réponse..."
-              autocomplete="off"
-              maxlength="500"
-            />
-            <button class="button button--small" data-sound="click" type="submit">Envoyer</button>
-          </form>
-          <p class="request-chat__fallback" data-request-chat-fallback hidden>
-            On dirait qu'on n'arrive pas à joindre notre assistant.
-            <button class="text-link" type="button" data-request-skip-chat>
-              Remplir le formulaire directement
-            </button>
-          </p>
-        </div>
-
-        <form class="contact-form" data-request-form hidden>
+        <form class="contact-form" data-request-form>
           <label class="visually-hidden" aria-hidden="true">
             Ne remplissez pas ce champ
             <input type="text" name="company" tabindex="-1" autocomplete="off" data-honeypot />
           </label>
+
+          <div class="pill-field">
+            <span class="pill-field__label">Type d'événement</span>
+            <div class="pill-group" data-pill-group="event-type" role="radiogroup" aria-label="Type d'événement">
+              <button type="button" class="pill-choice" data-value="festival" aria-pressed="false">Festival</button>
+              <button type="button" class="pill-choice" data-value="entreprise" aria-pressed="false">Entreprise</button>
+              <button type="button" class="pill-choice" data-value="ecole" aria-pressed="false">École</button>
+              <button type="button" class="pill-choice" data-value="commune" aria-pressed="false">Commune</button>
+              <button type="button" class="pill-choice" data-value="association" aria-pressed="false">Association</button>
+              <button type="button" class="pill-choice" data-value="anniversaire" aria-pressed="false">Anniversaire</button>
+              <button type="button" class="pill-choice" data-value="autre" aria-pressed="false">Autre</button>
+            </div>
+          </div>
+
+          <div class="pill-field">
+            <span class="pill-field__label">Le jeu doit mettre en avant...</span>
+            <div class="pill-group" data-pill-group="concept" role="radiogroup" aria-label="Thème du jeu">
+              <button type="button" class="pill-choice" data-value="village" aria-pressed="false">Un lieu, une commune</button>
+              <button type="button" class="pill-choice" data-value="histoire" aria-pressed="false">Une histoire, un patrimoine</button>
+              <button type="button" class="pill-choice" data-value="metier" aria-pressed="false">Un métier, une industrie</button>
+              <button type="button" class="pill-choice" data-value="edifice" aria-pressed="false">Un bâtiment historique</button>
+              <button type="button" class="pill-choice" data-value="melange" aria-pressed="false">Un mélange de tout ça</button>
+              <button type="button" class="pill-choice" data-value="libre" aria-pressed="false">Animation libre, sans thème</button>
+            </div>
+          </div>
+
           <label>
             Nom
             <input type="text" name="name" placeholder="Votre nom" maxlength="100" required />
@@ -550,27 +556,13 @@
             <input type="email" name="email" placeholder="vous@exemple.ch" maxlength="150" required />
           </label>
           <label>
-            Type d'événement
-            <select name="event-type" required>
-              <option value="" disabled selected>Choisissez une option</option>
-              <option value="festival">Festival</option>
-              <option value="entreprise">Entreprise</option>
-              <option value="ecole">École</option>
-              <option value="commune">Commune</option>
-              <option value="association">Association</option>
-              <option value="anniversaire">Anniversaire</option>
-              <option value="autre">Autre</option>
-            </select>
-          </label>
-          <label>
-            Message
+            Précisions <span class="contact-form__optional">(facultatif)</span>
             <textarea
               name="message"
-              rows="4"
-              placeholder="Parlez-nous de votre événement..."
+              rows="3"
+              placeholder="Date, nombre de participants, inspirations..."
               data-request-message
               maxlength="2000"
-              required
             ></textarea>
           </label>
           <button class="button" data-sound="success" type="submit">Envoyer la demande</button>

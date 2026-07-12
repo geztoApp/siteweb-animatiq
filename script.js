@@ -253,134 +253,49 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-/* Request modal (project/game inquiry form, with an optional AI chat step) */
+/* Request modal (project/game inquiry form, pill-based — no typing required
+   beyond name/email/optional details) */
 
 const requestModal = document.querySelector("[data-request-modal]");
 const requestTitleEl = document.querySelector("[data-request-title]");
 const requestMessageEl = document.querySelector("[data-request-message]");
 const requestForm = document.querySelector("[data-request-form]");
 const requestNote = document.querySelector("[data-request-note]");
-const requestEventTypeSelect = requestForm ? requestForm.querySelector("select[name='event-type']") : null;
-
-const requestChat = document.querySelector("[data-request-chat]");
-const requestChatMessages = document.querySelector("[data-request-chat-messages]");
-const requestChatForm = document.querySelector("[data-request-chat-form]");
-const requestChatInput = document.querySelector("[data-request-chat-input]");
-const requestChatFallback = document.querySelector("[data-request-chat-fallback]");
-const requestSkipChatButton = document.querySelector("[data-request-skip-chat]");
 
 let lastRequestTrigger = null;
-let chatHistory = [];
-let chatProjectTitle = "";
-let chatBusy = false;
+let requestProjectTitle = "";
 let requestFormShownAt = null;
 
-const addChatBubble = (role, text) => {
-  if (!requestChatMessages) return null;
-  const bubble = document.createElement("div");
-  bubble.className = `request-chat__bubble request-chat__bubble--${role}`;
-  bubble.textContent = text;
-  requestChatMessages.appendChild(bubble);
-  requestChatMessages.scrollTop = requestChatMessages.scrollHeight;
-  return bubble;
-};
-
-const addTypingBubble = () => {
-  if (!requestChatMessages) return null;
-  const bubble = document.createElement("div");
-  bubble.className = "request-chat__bubble request-chat__bubble--assistant request-chat__bubble--typing";
-  bubble.innerHTML =
-    '<span class="request-chat__dot"></span><span class="request-chat__dot"></span><span class="request-chat__dot"></span>';
-  requestChatMessages.appendChild(bubble);
-  requestChatMessages.scrollTop = requestChatMessages.scrollHeight;
-  return bubble;
-};
-
-const showFormDirectly = () => {
-  requestFormShownAt = Date.now();
-  if (requestChat) requestChat.hidden = true;
-  if (requestForm) requestForm.hidden = false;
-  const nameField = requestForm ? requestForm.querySelector("input[name='name']") : null;
-  if (nameField) nameField.focus();
-};
-
-const completeChat = (eventType, message) => {
-  if (requestEventTypeSelect && eventType) requestEventTypeSelect.value = eventType;
-  if (requestMessageEl && message) requestMessageEl.value = message;
-  showFormDirectly();
-};
-
-const sendChatMessage = async (userText) => {
-  if (chatBusy) return;
-  chatBusy = true;
-
-  if (userText) {
-    chatHistory.push({ role: "user", content: userText });
-    addChatBubble("user", userText);
-  }
-
-  const typingBubble = addTypingBubble();
-
-  try {
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ projectTitle: chatProjectTitle, messages: chatHistory }),
+document.querySelectorAll("[data-pill-group]").forEach((group) => {
+  group.addEventListener("click", (event) => {
+    const button = event.target.closest(".pill-choice");
+    if (!button || !group.contains(button)) return;
+    group.querySelectorAll(".pill-choice").forEach((btn) => {
+      const selected = btn === button;
+      btn.classList.toggle("is-selected", selected);
+      btn.setAttribute("aria-pressed", String(selected));
     });
-
-    if (!response.ok) throw new Error("chat request failed");
-
-    const data = await response.json();
-    if (typingBubble) typingBubble.remove();
-
-    if (data.done) {
-      addChatBubble(
-        "assistant",
-        "Parfait, j'ai tout ce qu'il faut ! Vérifiez le résumé ci-dessous et complétez vos coordonnées. 🎉"
-      );
-      completeChat(data.eventType, data.message);
-    } else {
-      chatHistory.push({ role: "assistant", content: data.reply });
-      addChatBubble("assistant", data.reply);
-    }
-  } catch {
-    if (typingBubble) typingBubble.remove();
-    if (requestChatFallback) requestChatFallback.hidden = false;
-  } finally {
-    chatBusy = false;
-  }
-};
-
-if (requestChatForm) {
-  requestChatForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const text = requestChatInput.value.trim();
-    if (!text) return;
-    requestChatInput.value = "";
-    sendChatMessage(text);
   });
-}
+});
 
-if (requestSkipChatButton) {
-  requestSkipChatButton.addEventListener("click", showFormDirectly);
-}
+const resetRequestPills = () => {
+  if (!requestForm) return;
+  requestForm.querySelectorAll(".pill-choice.is-selected").forEach((btn) => {
+    btn.classList.remove("is-selected");
+    btn.setAttribute("aria-pressed", "false");
+  });
+};
 
 const openRequestModal = (title) => {
   if (!requestModal) return;
 
-  chatProjectTitle = title || "";
-  chatHistory = [];
-  chatBusy = false;
+  requestProjectTitle = title || "";
+  requestFormShownAt = Date.now();
 
   if (requestTitleEl) requestTitleEl.textContent = title || "Un projet sur mesure";
   if (requestMessageEl) requestMessageEl.value = "";
-  if (requestEventTypeSelect) requestEventTypeSelect.value = "";
-  if (requestChatMessages) requestChatMessages.replaceChildren();
-  if (requestChatFallback) requestChatFallback.hidden = true;
-
-  if (requestChat) requestChat.hidden = false;
-  if (requestForm) requestForm.hidden = true;
-  sendChatMessage(null);
+  if (requestNote) requestNote.textContent = "";
+  resetRequestPills();
 
   requestModal.classList.add("is-open");
   requestModal.setAttribute("aria-hidden", "false");
@@ -449,24 +364,44 @@ if (requestForm && requestNote) {
     if (isLikelySpam(requestForm, requestFormShownAt)) {
       requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
+      resetRequestPills();
+      return;
+    }
+
+    const eventPill = requestForm.querySelector('[data-pill-group="event-type"] .pill-choice.is-selected');
+    const conceptPill = requestForm.querySelector('[data-pill-group="concept"] .pill-choice.is-selected');
+
+    if (!eventPill || !conceptPill) {
+      requestNote.textContent = "Merci de choisir un type d'événement et un thème.";
       return;
     }
 
     const formData = new FormData(requestForm);
+    const extra = (formData.get("message") || "").trim();
+    const composedMessage = [
+      `Type d'événement : ${eventPill.textContent.trim()}`,
+      `Le jeu doit mettre en avant : ${conceptPill.textContent.trim()}`,
+      extra,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
     const payload = {
       name: formData.get("name"),
       email: formData.get("email"),
-      eventType: formData.get("event-type") || "",
-      message: formData.get("message"),
+      eventType: eventPill.dataset.value,
+      concept: conceptPill.dataset.value,
+      message: composedMessage,
       company: formData.get("company") || "",
       shownAt: requestFormShownAt,
-      source: chatProjectTitle ? `request:${chatProjectTitle}` : "request",
+      source: requestProjectTitle ? `request:${requestProjectTitle}` : "request",
     };
 
     try {
       await submitToContactServer(payload);
       requestNote.textContent = "Demande envoyée ! On revient vers vous très vite. 🎉";
       requestForm.reset();
+      resetRequestPills();
     } catch {
       requestNote.textContent = "Oups, une erreur est survenue. Réessayez ou écrivez-nous directement.";
     }

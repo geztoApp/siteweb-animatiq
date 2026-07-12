@@ -1,9 +1,9 @@
 # Déploiement
 
 Tout — le site statique (`index.html`, `styles.css`, `script.js`) et les
-trois API (compteur de démos, chat IA, formulaires) — tourne dans **un seul
-processus Node** (`server.js`), donc **une seule app Easypanel**
-(`siteweb-animatiq`, déjà en place).
+API (compteur de démos, formulaires) — tourne dans **un seul processus
+Node** (`server.js`), donc **une seule app Easypanel** (`siteweb-animatiq`,
+déjà en place).
 
 ## Ce qui roule où
 
@@ -11,7 +11,6 @@ processus Node** (`server.js`), donc **une seule app Easypanel**
 |---|---|
 | `GET /` | le site |
 | `GET /api/counters`, `POST /api/counters/:slug/play` | compteur de parties jouées par démo |
-| `POST /api/chat` | assistant IA de qualification de projet |
 | `POST /api/submit` | réception des formulaires (contact + demande de projet) |
 | `GET /admin/counters` | page HTML de consultation des compteurs |
 | `GET /admin/submissions` | page HTML de consultation des demandes reçues |
@@ -20,13 +19,12 @@ processus Node** (`server.js`), donc **une seule app Easypanel**
 
 | Variable | Rôle | Défaut |
 |---|---|---|
-| `OPENAI_API_KEY` | clé API OpenAI, nécessaire pour `/api/chat` | — |
-| `OPENAI_MODEL` | modèle utilisé | `gpt-4o-mini` |
 | `PORT` | port d'écoute — laisser vide/défaut, c'est le port que le nginx précédent utilisait et que Easypanel route déjà | `80` |
 
-Sans `OPENAI_API_KEY`, tout le reste du site fonctionne normalement — seul
-le chat de qualification répond par une erreur (le visiteur peut alors
-utiliser "Passer directement au formulaire").
+Si une variable `OPENAI_API_KEY` traîne encore dans la config Easypanel
+(de l'ancien assistant de qualification par chat, retiré depuis), elle est
+inoffensive à laisser mais n'est plus utilisée nulle part — vous pouvez la
+supprimer.
 
 ## Déployer / mettre à jour
 
@@ -49,14 +47,6 @@ vit que sur le volume du VPS.
 
 ```bash
 npm install
-PORT=8080 OPENAI_API_KEY=sk-... npm start
+PORT=8080 npm start
 # puis ouvrir http://localhost:8080
 ```
-
-## ⚠️ Non testé de bout en bout
-
-Docker n'est pas installé sur la machine où ce serveur a été écrit, donc je
-n'ai pas pu lancer un vrai `docker build`/`docker run` pour confirmer que
-l'image se construit et démarre sans accroc. Le code a été relu et
-validé syntaxiquement (`node --check`) ; premier déploiement à surveiller
-avec les logs Easypanel ouverts.
