@@ -20,6 +20,9 @@ déjà en place).
 | Variable | Rôle | Défaut |
 |---|---|---|
 | `PORT` | port d'écoute — laisser vide/défaut, c'est le port que le nginx précédent utilisait et que Easypanel route déjà | `80` |
+| `RESEND_API_KEY` | clé API Resend — sans elle, l'e-mail de notification est simplement désactivé (les demandes restent enregistrées dans `data/submissions.log` et visibles sur `/admin/submissions`) | — |
+| `RESEND_FROM` | adresse d'envoi — doit être sur un domaine vérifié dans Resend, sinon utiliser l'adresse sandbox (qui ne livre qu'à l'e-mail du compte Resend) | `onboarding@resend.dev` |
+| `RESEND_TO` | adresse qui reçoit les notifications | `gezto.app@gmail.com` |
 
 Si une variable `OPENAI_API_KEY` traîne encore dans la config Easypanel
 (de l'ancien assistant de qualification par chat, retiré depuis), elle est

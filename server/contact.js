@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { sendJson, getClientIp, readBody, createRateLimiter, escapeHtml } = require("./utils");
+const { sendNotificationEmail } = require("./email");
 
 const DATA_DIR = path.join(__dirname, "..", "data");
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -166,6 +167,10 @@ const handleApi = async (req, res, url) => {
     sendJson(res, 500, { error: "Impossible d'enregistrer la demande." });
     return true;
   }
+
+  // Fire-and-forget: the submission is already durably logged above, so an
+  // email hiccup must not delay or fail the visitor-facing response.
+  sendNotificationEmail(submission);
 
   sendJson(res, 200, { ok: true });
   return true;
