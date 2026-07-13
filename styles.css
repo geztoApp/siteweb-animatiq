@@ -1842,12 +1842,12 @@ p {
   }
 
   .hero-scene__figure {
-    margin-left: -12%;
+    margin-left: -20%;
   }
 
   .hero-score {
-    top: 6%;
-    right: -14%;
+    top: 2%;
+    right: -30%;
     padding: 10px 16px;
   }
 
