@@ -1955,6 +1955,22 @@ p {
   .footer-row {
     background: #34383e;
   }
+
+  /* The 16:9 aspect-ratio panel works on desktop but fights mobile screens:
+     tiny in portrait, taller than the viewport in landscape (clipping the
+     game's own top/bottom UI). Go edge-to-edge instead and let the embedded
+     game's own responsive layout fill whatever space it actually gets. */
+  .game-modal {
+    padding: 0;
+  }
+
+  .game-modal__panel {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
