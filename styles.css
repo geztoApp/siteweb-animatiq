@@ -597,6 +597,16 @@ p {
   z-index: 2;
 }
 
+.services-intro .services-mascot {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.services-intro .section-heading {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .services-intro .section-heading {
   margin-bottom: 0;
 }
@@ -1734,7 +1744,17 @@ p {
     position: static;
   }
 
-  .services-mascot {
+  /* Stacked single-column: put the heading first so the services mascot
+     doesn't land right under the hero mascot — back-to-back mascots read
+     as redundant with nothing else between them. */
+  .services-intro .section-heading {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .services-intro .services-mascot {
+    grid-column: 1;
+    grid-row: 2;
     justify-content: center;
   }
 
@@ -1821,9 +1841,13 @@ p {
     padding: var(--space-6) 0;
   }
 
+  .hero-scene__figure {
+    margin-left: -12%;
+  }
+
   .hero-score {
     top: 6%;
-    right: -4%;
+    right: -14%;
     padding: 10px 16px;
   }
 
@@ -1845,6 +1869,18 @@ p {
   .services-mascot__image {
     max-width: 220px;
     max-height: 260px;
+  }
+
+  .logo-grid {
+    row-gap: var(--space-2);
+  }
+
+  .logo-tile {
+    padding: 8px;
+  }
+
+  .logo-tile img {
+    max-height: 76px;
   }
 
   .service-row {
@@ -1876,11 +1912,21 @@ p {
     margin: var(--space-5) auto;
   }
 
+  /* Full-bleed: break out of .container's side margins so the box reaches
+     the viewport edges, restoring some of that margin as inner padding. */
   .contact-shell {
-    padding: var(--space-4);
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: var(--space-4) 20px;
+    border-radius: 0;
   }
 
   .footer-row {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    border-radius: 0;
     flex-direction: column;
     align-items: flex-start;
   }
