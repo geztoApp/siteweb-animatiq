@@ -1923,6 +1923,7 @@ p {
   }
 
   .site-footer {
+    padding-top: 0;
     padding-bottom: 0;
   }
 
@@ -1942,6 +1943,17 @@ p {
 
   .footer-wave {
     display: none;
+  }
+
+  /* Glue the full-bleed contact box straight to the full-bleed footer bar —
+     no gap, and a distinct lead-gray tone instead of repeating the contact
+     box's blue so the two don't blur into one shape. */
+  .section--contact {
+    padding-bottom: 0;
+  }
+
+  .footer-row {
+    background: #34383e;
   }
 }
 
