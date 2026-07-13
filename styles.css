@@ -1922,6 +1922,10 @@ p {
     border-radius: 0;
   }
 
+  .site-footer {
+    padding-bottom: 0;
+  }
+
   .footer-row {
     width: 100vw;
     margin-left: calc(50% - 50vw);
@@ -1931,9 +1935,13 @@ p {
     align-items: flex-start;
   }
 
-  .mascot-image--footer {
-    height: 110px;
-    margin-top: 0;
+  .footer-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-wave {
+    display: none;
   }
 }
 
