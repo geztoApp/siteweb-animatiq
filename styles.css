@@ -1784,14 +1784,22 @@ p {
   }
 
   .header-row {
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     padding: 12px 0;
   }
 
   .brand {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+  }
+
+  .brand__logo {
+    width: min(58vw, 240px);
+    height: auto;
+    object-fit: contain;
+  }
+
+  .header-row > .button {
+    display: none;
   }
 
   .hero {
@@ -1800,7 +1808,7 @@ p {
   }
 
   .hero-actions {
-    flex-direction: column;
+    display: none;
   }
 
   .button,
@@ -1814,31 +1822,19 @@ p {
   }
 
   .hero-score {
-    position: static;
-    justify-self: center;
-    margin-top: var(--space-4);
-    text-align: center;
-    transform: none;
+    top: 6%;
+    right: -4%;
+    padding: 10px 16px;
   }
 
-  .hero-score::before,
-  .hero-score::after {
-    display: none;
+  .hero-score strong {
+    font-size: 1.5rem;
   }
 
+  /* The pills scattered around the mascot on desktop are tuned for a lot of
+     open space — on mobile they'd just clutter a tighter composition. */
   .hero-chips {
-    position: static;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: var(--space-4);
-  }
-
-  .hero-chips li {
-    position: static;
-    transform: none;
-    animation: none;
+    display: none;
   }
 
   .services-intro {
