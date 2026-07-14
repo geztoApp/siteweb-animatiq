@@ -651,9 +651,18 @@
         <button class="game-modal__close" type="button" data-game-modal-close aria-label="Fermer la démo">
           ✕
         </button>
-        <div class="game-modal__frame" data-game-modal-frame></div>
-        <div class="game-modal__hint" data-game-modal-hint aria-hidden="true">
-          <span>🖱️ Cliquez pour jouer</span>
+        <div class="game-modal__frame" data-game-modal-frame>
+          <div class="game-modal__hint" data-game-modal-hint aria-hidden="true">
+            <span>🖱️ Cliquez pour jouer</span>
+          </div>
+        </div>
+        <div class="game-modal__notice" data-game-modal-notice hidden>
+          <p class="game-modal__notice-badge">Démo en format réduit</p>
+          <ul class="game-modal__controls">
+            <li><kbd>↑</kbd> Sauter</li>
+            <li><kbd>←</kbd><kbd>→</kbd> Se déplacer</li>
+            <li><kbd>Shift</kbd> Tirer des bouchons</li>
+          </ul>
         </div>
       </div>
     </div>

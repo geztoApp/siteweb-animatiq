@@ -264,7 +264,13 @@ document.querySelectorAll("[data-sound]").forEach((node) => {
 const gameModal = document.querySelector("[data-game-modal]");
 const gameModalFrame = document.querySelector("[data-game-modal-frame]");
 const gameModalHint = document.querySelector("[data-game-modal-hint]");
+const gameModalNotice = document.querySelector("[data-game-modal-notice]");
 let lastGameTrigger = null;
+
+// These two share the same reduced-format demo build with the same
+// jump/walk/shoot-corks controls; the control legend isn't relevant yet
+// for L'Escalade 1602.
+const GAMES_WITH_CONTROLS_NOTICE = ["caves-ouvertes", "chasse-aux-bonbons"];
 
 const reportDemoPlay = (slug) => {
   if (!slug) return;
@@ -279,6 +285,10 @@ const openGameModal = (src, title, slug) => {
 
   if (lastGameTrigger) lastGameTrigger.blur();
   if (gameModalHint) gameModalHint.classList.remove("is-hidden");
+  if (gameModalNotice) gameModalNotice.hidden = !GAMES_WITH_CONTROLS_NOTICE.includes(slug);
+
+  const previousIframe = gameModalFrame.querySelector("iframe");
+  if (previousIframe) previousIframe.remove();
 
   const iframe = document.createElement("iframe");
   iframe.src = src;
@@ -288,7 +298,7 @@ const openGameModal = (src, title, slug) => {
   iframe.addEventListener("focus", () => {
     if (gameModalHint) gameModalHint.classList.add("is-hidden");
   });
-  gameModalFrame.replaceChildren(iframe);
+  gameModalFrame.appendChild(iframe);
 
   gameModal.classList.add("is-open");
   gameModal.setAttribute("aria-hidden", "false");
@@ -302,7 +312,8 @@ const closeGameModal = () => {
 
   gameModal.classList.remove("is-open");
   gameModal.setAttribute("aria-hidden", "true");
-  gameModalFrame.replaceChildren();
+  const iframe = gameModalFrame.querySelector("iframe");
+  if (iframe) iframe.remove();
   document.body.style.overflow = "";
 
   if (lastGameTrigger) lastGameTrigger.focus();
