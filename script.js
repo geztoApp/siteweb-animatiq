@@ -265,16 +265,42 @@ const gameModal = document.querySelector("[data-game-modal]");
 const gameModalFrame = document.querySelector("[data-game-modal-frame]");
 const gameModalHint = document.querySelector("[data-game-modal-hint]");
 const gameModalNotice = document.querySelector("[data-game-modal-notice]");
+const gameModalControls = document.querySelector("[data-game-modal-controls]");
 let lastGameTrigger = null;
 
 // Matches the site's own mobile breakpoint (see styles.css) so the same
 // visitor gets the same "mobile or not" call throughout the game modal.
 const isMobileViewport = () => window.matchMedia("(max-width: 767px)").matches;
 
-// These two share the same reduced-format demo build with the same
-// jump/walk/shoot-corks controls; the control legend isn't relevant yet
-// for L'Escalade 1602.
-const GAMES_WITH_CONTROLS_NOTICE = ["caves-ouvertes", "chasse-aux-bonbons"];
+// Keyboard legend per demo — undefined for any game not listed here (only
+// meaningful on desktop; mobile visitors get the game's own touch controls).
+const GAME_CONTROLS = {
+  "caves-ouvertes": [
+    { keys: ["↑"], label: "Sauter" },
+    { keys: ["←", "→"], label: "Se déplacer" },
+    { keys: ["Shift"], label: "Tirer des bouchons" },
+  ],
+  "chasse-aux-bonbons": [
+    { keys: ["↑"], label: "Sauter" },
+    { keys: ["←", "→"], label: "Se déplacer" },
+    { keys: ["Shift"], label: "Tirer des bouchons" },
+  ],
+  "escalade-1602": [
+    { keys: ["←", "→", "↑", "↓"], label: "Se déplacer" },
+    { keys: ["X"], label: "Pétards" },
+    { keys: ["Espace"], label: "Frapper les ennemis" },
+  ],
+};
+
+const renderGameControls = (controls) => {
+  if (!gameModalControls) return;
+  gameModalControls.innerHTML = controls
+    .map(
+      (control) =>
+        `<li>${control.keys.map((key) => `<kbd>${key}</kbd>`).join("")} ${control.label}</li>`
+    )
+    .join("");
+};
 
 const reportDemoPlay = (slug) => {
   if (!slug) return;
@@ -290,9 +316,10 @@ const openGameModal = (src, title, slug) => {
   if (lastGameTrigger) lastGameTrigger.blur();
   if (gameModalHint) gameModalHint.classList.remove("is-hidden");
   if (gameModalNotice) {
-    // Keyboard controls (arrows/Shift) are meaningless on a touch device —
-    // mobile visitors get the game's own touch controls instead.
-    gameModalNotice.hidden = isMobileViewport() || !GAMES_WITH_CONTROLS_NOTICE.includes(slug);
+    const controls = GAME_CONTROLS[slug];
+    const showNotice = !isMobileViewport() && Boolean(controls);
+    gameModalNotice.hidden = !showNotice;
+    if (showNotice) renderGameControls(controls);
   }
 
   const previousIframe = gameModalFrame.querySelector("iframe");
