@@ -267,6 +267,10 @@ const gameModalHint = document.querySelector("[data-game-modal-hint]");
 const gameModalNotice = document.querySelector("[data-game-modal-notice]");
 let lastGameTrigger = null;
 
+// Matches the site's own mobile breakpoint (see styles.css) so the same
+// visitor gets the same "mobile or not" call throughout the game modal.
+const isMobileViewport = () => window.matchMedia("(max-width: 767px)").matches;
+
 // These two share the same reduced-format demo build with the same
 // jump/walk/shoot-corks controls; the control legend isn't relevant yet
 // for L'Escalade 1602.
@@ -285,7 +289,11 @@ const openGameModal = (src, title, slug) => {
 
   if (lastGameTrigger) lastGameTrigger.blur();
   if (gameModalHint) gameModalHint.classList.remove("is-hidden");
-  if (gameModalNotice) gameModalNotice.hidden = !GAMES_WITH_CONTROLS_NOTICE.includes(slug);
+  if (gameModalNotice) {
+    // Keyboard controls (arrows/Shift) are meaningless on a touch device —
+    // mobile visitors get the game's own touch controls instead.
+    gameModalNotice.hidden = isMobileViewport() || !GAMES_WITH_CONTROLS_NOTICE.includes(slug);
+  }
 
   const previousIframe = gameModalFrame.querySelector("iframe");
   if (previousIframe) previousIframe.remove();
@@ -318,11 +326,6 @@ const closeGameModal = () => {
 
   if (lastGameTrigger) lastGameTrigger.focus();
 };
-
-// Matches the site's own mobile breakpoint (see styles.css) so the same
-// visitor gets the same "mobile or not" call for the embedded game as for
-// the rest of the page.
-const isMobileViewport = () => window.matchMedia("(max-width: 767px)").matches;
 
 document.querySelectorAll("[data-game-trigger]").forEach((trigger) => {
   trigger.addEventListener("click", (event) => {
