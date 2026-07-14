@@ -1441,6 +1441,11 @@ p {
 
 .game-modal__notice {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   padding: 14px 20px;
   background: #12141c;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -1451,17 +1456,20 @@ p {
 }
 
 .game-modal__notice-badge {
-  margin: 0 0 8px;
+  margin: 0;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: var(--color-yellow);
+  white-space: nowrap;
 }
 
 .game-modal__controls {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 10px 20px;
   margin: 0;
   padding: 0;
