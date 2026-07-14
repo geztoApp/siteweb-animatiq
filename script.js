@@ -308,11 +308,18 @@ const closeGameModal = () => {
   if (lastGameTrigger) lastGameTrigger.focus();
 };
 
+// Matches the site's own mobile breakpoint (see styles.css) so the same
+// visitor gets the same "mobile or not" call for the embedded game as for
+// the rest of the page.
+const isMobileViewport = () => window.matchMedia("(max-width: 767px)").matches;
+
 document.querySelectorAll("[data-game-trigger]").forEach((trigger) => {
   trigger.addEventListener("click", (event) => {
     event.preventDefault();
     lastGameTrigger = trigger;
-    openGameModal(trigger.dataset.gameTrigger, trigger.dataset.gameTitle, trigger.dataset.gameSlug);
+    const mobileSrc = trigger.dataset.gameTriggerMobile;
+    const src = isMobileViewport() && mobileSrc ? mobileSrc : trigger.dataset.gameTrigger;
+    openGameModal(src, trigger.dataset.gameTitle, trigger.dataset.gameSlug);
   });
 });
 
