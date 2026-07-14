@@ -95,8 +95,6 @@ if (!reduceMotion && "IntersectionObserver" in window) {
 
 /* Animated counters */
 
-const counters = document.querySelectorAll("[data-count]");
-
 const animateCounter = (node) => {
   const target = Number(node.dataset.count || 0);
   const duration = 1800;
@@ -115,24 +113,52 @@ const animateCounter = (node) => {
   window.requestAnimationFrame(step);
 };
 
-if (!reduceMotion && "IntersectionObserver" in window) {
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.45 }
-  );
+const initCounters = () => {
+  const counters = document.querySelectorAll("[data-count]");
 
-  counters.forEach((counter) => counterObserver.observe(counter));
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    counters.forEach((counter) => counterObserver.observe(counter));
+  } else {
+    counters.forEach((counter) => {
+      counter.textContent = Number(counter.dataset.count || 0).toLocaleString("fr-FR");
+    });
+  }
+};
+
+// The hero stat reflects real "Jouer" clicks (see server/counters.js) on top
+// of a starting baseline, rather than a fixed decorative number. Counter
+// setup waits for this fetch to settle (success, failure, or no data) so
+// the real total — not the HTML's fallback value — is what the reveal
+// animation actually counts up to.
+const HERO_COUNT_BASELINE = 597;
+const heroCountEl = document.querySelector(".hero-score strong[data-count]");
+
+if (heroCountEl) {
+  fetch("/api/counters")
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      const real = data ? Object.values(data).reduce((sum, n) => sum + (Number(n) || 0), 0) : 0;
+      heroCountEl.dataset.count = String(HERO_COUNT_BASELINE + real);
+    })
+    .catch(() => {
+      // Counter API unreachable — fall back to the baseline alone.
+      heroCountEl.dataset.count = String(HERO_COUNT_BASELINE);
+    })
+    .finally(initCounters);
 } else {
-  counters.forEach((counter) => {
-    counter.textContent = Number(counter.dataset.count || 0).toLocaleString("fr-FR");
-  });
+  initCounters();
 }
 
 /* Mouse parallax */
